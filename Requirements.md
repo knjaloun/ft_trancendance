@@ -14,5 +14,6 @@
 |advanced permission System| 2 | open 🔴
 |public api with rate limiting| 2 | open 🔴
 |User activity analytics and insights dashboard| 1| open 🔴
+|email activation (module of choice) | 1 | open🔴
 
-**0 / 15 points**
+**0 / 16 points**
