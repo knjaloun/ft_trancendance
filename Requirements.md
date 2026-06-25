@@ -15,5 +15,6 @@
 |public api with rate limiting| 2 | open 🔴
 |User activity analytics and insights dashboard| 1| open 🔴
 |email activation (module of choice) | 1 | open🔴
+|real time feature|2 | open🔴
 
-**0 / 16 points**
+**0 / 18 points**
