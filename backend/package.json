@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "watch": "tsc -w",
-    "start": "node dist/server/api/index.js"
+    "start": "node dist/server/api/index.js",
+    "build": "tsc"
   },
   "dependencies": {
     "@types/express": "^5.0.6",
@@ -16,10 +17,16 @@
     "dotenv-expand": "^13.0.0",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
-    "mysql2": "^3.22.5"
+    "mysql2": "^3.22.5",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "drizzle-kit": "^0.31.10",
     "tsx": "^4.22.4"
+  },
+  "imports": {
+    "#auth/*": "./dist/server/api/modules/auth/*",
+    "#dtos/*" : "./dist/server/dtos/*",
+    "#utils/*": "./dist/server/api/utils/*"
   }
 }
