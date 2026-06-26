@@ -1,11 +1,6 @@
 import express from 'express'
-import dotenv from 'dotenv'
-import dotenvExpand from 'dotenv-expand'
-import authRouter from '#auth/route/auth.routing.js'
 
-//loading enviroment variables from the .env file
-const env = dotenv.config({path: '../../.env'})
-dotenvExpand.expand(env)
+import authRouter from '#auth/route/auth.routing.js'
 
 const app = express()
 app.use(express.json());

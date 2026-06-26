@@ -2,6 +2,7 @@ import type{Response, Request} from 'express'
 
 import { type RegisterDTO} from '#dtos/registerDto.js'
 import {validateRequestBodyOrThrow} from '#utils/bodyValidator.js'
+import {registerUser} from '#auth/services/register.service.js'
 
 export async function registerController(req:Request, res:Response)
 {
@@ -17,7 +18,8 @@ export async function registerController(req:Request, res:Response)
     try
     {
         await validateRequestBodyOrThrow(data);
-        res.send('valid')
+        await registerUser(data);
+        res.status(201).send('registerd user succesfully')
     }
     catch(e)
     {

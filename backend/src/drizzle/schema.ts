@@ -8,11 +8,10 @@ export const users = mysqlTable('users', {
     last_name: varchar('last_name',{length: 255}),
     email: varchar('email',{length: 255}).unique().notNull(),
     password: varchar('password',{length:255}),
-    salt: varchar('salt', {length: 255}),
     created_at: timestamp('created_at').defaultNow(),
-    role: mysqlEnum('role', ['user', 'admin']).notNull(),
-    status: mysqlEnum('status', ['blocked', 'banned', 'active']).notNull(),
-    verified: boolean('verified').notNull(),
+    role: mysqlEnum('role', ['user', 'admin']).default('user'),
+    status: mysqlEnum('status', ['restricted', 'banned', 'active']).default('active'),
+    verified: boolean('verified').default(false),
     phone_number: varchar('phone_number', {length: 30})
 })
 
