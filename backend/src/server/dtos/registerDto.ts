@@ -1,6 +1,6 @@
 import {z} from 'zod'
 
-export const registerDTO = z.object({
+export const register_dto = z.object({
     email: z.email().min(1),
     first_name: z.string().min(1),
     last_name: z.string().min(1),
@@ -8,4 +8,4 @@ export const registerDTO = z.object({
     phone_number: z.e164() 
 })
 
-export type RegisterDTO = z.infer<typeof registerDTO>
+export type RegisterDTO = z.infer<typeof register_dto>

@@ -5,10 +5,10 @@ services:
     container_name: mysql-container
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PSW}
-      # uncomment below if you want to automatically create and select a database
       MYSQL_DATABASE: trancendance
+      MYSQL_TCP_PORT: 5310
     ports:
-      - "3306:3306"
+      - "5310:5310"
     volumes:
       - mysql-data:/var/lib/mysql
 
