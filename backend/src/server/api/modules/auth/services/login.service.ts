@@ -4,7 +4,7 @@ import {UserModel} from '#models/userModel.js'
 
 async function isValidCredentials(login_data:loginDTO, user_model:UserModel)
 {
-    await user_model.getUser();
+    await user_model.getUserCredentials();
     login_data.email;
 }   
 

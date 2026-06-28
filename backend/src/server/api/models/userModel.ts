@@ -10,14 +10,20 @@ export class UserModel {
         this.user_data = data
     }
 
-    async getUser() //: Promise<loginDTO>
+    async getUserCredentials() : Promise<loginDTO | null>
     {
-        const user = db.select({email: users.email, password: users.password})
+        const user = await db.select({email: users.email, password: users.password})
                         .from(users)
                         .where(eq(users.email, this.user_data.email));
-        const { email, password } = user[0]; // todo
-
+        const { email, password } = user[0]!;
+        if (!password)
+                return (null)
+        const user_credentials: loginDTO = {
+            email: email,
+            password : password
+        }
         console.log(`email : ${email},   password : ${password}`)
+        return (user_credentials)
     }
     /**
      * register the user in the database
