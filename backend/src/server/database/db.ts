@@ -1,12 +1,14 @@
-import 'dotenv/config';
+
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
-  
-const poolConnection = mysql.createPool({
-  host: "127.0.0.1",
+
+if (process.env.DB_ROOT_PSW === undefined)
+    console.log('MYSQL PASSWORD MISSING ERROR');
+const pool_connection = mysql.createPool({
+  host: process.env.HOST!,
   user: "root",
+  password: process.env.DB_ROOT_PSW!,
   database: "trancendance",
+  port: Number(process.env.DB_PORT!)
 });
-export const db = drizzle({ client: poolConnection });
-
-
+export const db = drizzle({ client: pool_connection });
