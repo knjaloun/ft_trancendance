@@ -6,7 +6,7 @@ import { HttpError } from '#errors/HttpError.js';
 
 export async function loginController(req:Request, res:Response)
 {
-    const {email, password} = req.body;
+    const {email, password} = req.body || {};
 
     const login_data: loginDTO = {
         email: email,

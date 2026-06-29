@@ -5,7 +5,7 @@ import {registerUser} from '#auth/services/register.service.js'
 
 export async function registerController(req:Request, res:Response)
 {
-    const {email, first_name, last_name, password, phone_number} = req.body
+    const {email, first_name, last_name, password, phone_number} = req.body || {}
 
     const registration_data : RegisterDTO = {
         email: email,
