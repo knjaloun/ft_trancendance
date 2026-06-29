@@ -20,11 +20,11 @@ export async function registerController(req:Request, res:Response)
         await registerUser(registration_data);
         res.status(201).send('registerd user succesfully')
     }
-    catch(e)
+    catch(err)
     {
-        if (e instanceof Error)
+        if (err instanceof Error)
         {
-             res.status(400).send(`${e.message}`)
+             res.status(400).send(`${err.message}`)
              return;
         }
         res.status(400).send('unknow error')
