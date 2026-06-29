@@ -6,7 +6,7 @@ const app = express()
 app.use(express.json());
 const port = process.env.PORT ?? 3000
 
-app.use('/api/auth', authRouter)
+app.use('/api', authRouter)
 
 app.listen(port, ()=>{
     console.log(`app listens on port ${port}`)
