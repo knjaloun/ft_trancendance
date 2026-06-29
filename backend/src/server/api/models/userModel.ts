@@ -22,7 +22,6 @@ export class UserModel {
             email: email,
             password : password
         }
-        console.log(`email : ${email},   password : ${password}`)
         return (user_credentials)
     }
     /**

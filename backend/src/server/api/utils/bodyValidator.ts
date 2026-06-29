@@ -1,5 +1,6 @@
 import { type RegisterDTO, register_dto} from '#dtos/registerDto.js'
 import {type loginDTO, login_dto} from '#dtos/loginDto.js'
+import { InvalidBodyError } from '#errors/InvalidBodyError.js';
 
 export async function validateRequestBodyOrThrow(data: RegisterDTO | loginDTO)
 {
@@ -11,6 +12,6 @@ export async function validateRequestBodyOrThrow(data: RegisterDTO | loginDTO)
         auth_data = login_dto.safeParse(data)
     if (!auth_data.success)
     {
-        throw new Error(`Invalid Body`)
+        throw new InvalidBodyError()
     }
 }

@@ -2,6 +2,7 @@ import type{Response, Request} from 'express'
 import {type loginDTO} from '#dtos/loginDto.js'
 import {validateRequestBodyOrThrow} from '#utils/bodyValidator.js'
 import {loginUser} from '#auth/services/login.service.js'
+import { HttpError } from '#errors/HttpError.js';
 
 export async function loginController(req:Request, res:Response)
 {
@@ -11,7 +12,6 @@ export async function loginController(req:Request, res:Response)
         email: email,
         password: password
     }
-
     try
     {
         await validateRequestBodyOrThrow(login_data)
@@ -19,9 +19,9 @@ export async function loginController(req:Request, res:Response)
         res.send('user can enter')
     }catch(err)
     {
-        if (err instanceof Error)
+        if (err instanceof HttpError)
         {
-            res.status(400).send(`${err}`)
+            res.status(err.status_code ?? 400).send(`${err}`)
             return;
         }
         res.status(400).send(`unknown error`)

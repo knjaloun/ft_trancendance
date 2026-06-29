@@ -17,7 +17,7 @@ export async function registerUser(data:RegisterDTO)
     const user_model = new UserModel(data)
     const user_exists:boolean = await user_model.userExists()
     if (user_exists)
-        throw new Error('user already exists');
+        throw new Error('email already in use');
 
     const user_creation_success: boolean = await user_model.createNewUser()
     if (!user_creation_success)

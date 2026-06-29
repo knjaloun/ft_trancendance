@@ -33,6 +33,6 @@
     "#db/*": "./dist/server/database/*",
     "#drizzle/*": "./dist/drizzle/*",
     "#models/*":"./dist/server/api/models/*",
-    "#env/*": "../*"
+    "#errors/*": "./dist/server/api/errors/*"
   }
 }
