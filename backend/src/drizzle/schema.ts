@@ -15,13 +15,10 @@ export const users = mysqlTable('users', {
     phone_number: varchar('phone_number', {length: 30})
 })
 
-export const email_activation_codes = mysqlTable('email_activation_code', {
+export const email_activation_tokens = mysqlTable('email_activation_tokens', {
     id : int('id').primaryKey().autoincrement(),
-    code: varchar('code', {length: 10}).unique().notNull(),
-    created_at: timestamp('created_at').defaultNow(),
-    expires_at : timestamp('expires_at').notNull(),
+    token: varchar('token', {length: 500}).unique().notNull(),
     user_id: int('user_id').references(() => users.id)
-
 })
 
 export const two_factors_code = mysqlTable('two_factors_code', {
