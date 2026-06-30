@@ -6,7 +6,7 @@ import { InvalidCredentialsError } from '#errors/InvalidCredentialsError.js';
 
 async function isValidCredentials(login_data:loginDTO, user_model:UserModel) : Promise<boolean>
 {
-    const user_credentials : loginDTO | null = await user_model.getUserCredentials();
+    const user_credentials : loginDTO | null = await user_model.getUserCredentials(login_data.email);
     if (!user_credentials)
             return (false)
     const is_valid_credentials : boolean = await bcrypt.compare(login_data.password, user_credentials.password)
@@ -17,9 +17,9 @@ async function isValidCredentials(login_data:loginDTO, user_model:UserModel) : P
 
 export async function loginUser(login_data:loginDTO)
 {
-    const user_model = new UserModel(login_data)
+    const user_model = new UserModel()
 
-    const user_exists = await user_model.userExists();
+    const user_exists = await user_model.userExists(login_data.email);
     if (!user_exists)
         throw new InvalidCredentialsError()
     const is_valid_credentials : boolean = await isValidCredentials(login_data, user_model)

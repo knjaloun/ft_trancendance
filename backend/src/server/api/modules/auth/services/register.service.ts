@@ -14,12 +14,12 @@ export async function registerUser(data:RegisterDTO)
     const hashed_password = await bcrypt.hash(data.password, salt)
     data.password = hashed_password
 
-    const user_model = new UserModel(data)
-    const user_exists:boolean = await user_model.userExists()
+    const user_model = new UserModel()
+    const user_exists:boolean = await user_model.userExists(data.email)
     if (user_exists)
         throw new Error('email already in use');
 
-    const user_creation_success: boolean = await user_model.createNewUser()
+    const user_creation_success: boolean = await user_model.createNewUser(data)
     if (!user_creation_success)
         throw new Error('Failed to register User')
 }
