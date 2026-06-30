@@ -2,7 +2,7 @@
 import {type loginDTO} from '#dtos/loginDto.js'
 import {UserModel} from '#models/userModel.js'
 import bcrypt from 'bcrypt'
-import { InvalidCredentialsError } from '#errors/InvalidCredentialsError.js';
+import { HttpError } from '#errors/HttpError.js';
 
 async function isValidCredentials(login_data:loginDTO, user_model:UserModel) : Promise<boolean>
 {
@@ -21,8 +21,11 @@ export async function loginUser(login_data:loginDTO)
 
     const user_exists = await user_model.userExists(login_data.email);
     if (!user_exists)
-        throw new InvalidCredentialsError()
+        throw new HttpError('invalid Email or password', 401);
     const is_valid_credentials : boolean = await isValidCredentials(login_data, user_model)
     if (!is_valid_credentials)
-        throw new InvalidCredentialsError()
+        throw new HttpError('invalid Email or password', 401)
+   const is_user_verified : boolean =  await user_model.isUserVerified(login_data.email)
+    if (!is_user_verified)
+        throw new HttpError('user account is not verified', 403)
 }

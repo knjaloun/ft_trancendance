@@ -5,6 +5,14 @@ import { type loginDTO } from '#dtos/loginDto.js'
 import { users } from '#drizzle/schema.js'
 
 export class UserModel {
+    async isUserVerified(email:string) : Promise<boolean>
+    {
+        const result = await db.select({verified: users.verified})
+                                .from(users)
+                                .where(eq(users.email, email))
+        const {verified} = result[0]!
+        return (verified ?? false)
+    }
     async getUserCredentials(user_email: string) : Promise<loginDTO | null>
     {
         const user = await db.select({email: users.email, password: users.password})

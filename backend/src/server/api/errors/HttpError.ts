@@ -1,4 +1,4 @@
-export abstract class HttpError extends Error
+export class HttpError extends Error
 {
     public readonly status_code : number
     constructor(message: string, status_code: number)
