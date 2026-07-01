@@ -5,15 +5,6 @@ import { type emailVerificationDTO } from '#dtos/emailVerificationDto.js'
 
 export class EmailVerificationModel
 {
-    async hasVerificationOpen(id:number) : Promise<boolean>
-    {
-        const result = await db.select()
-                                .from(email_activation_tokens)
-                                .where(eq(email_activation_tokens.user_id, id))
-        return (result.length > 0)
-        
-    }
-
     async UpdateToken(data: emailVerificationDTO) : Promise<boolean>
     {
         try
@@ -48,5 +39,23 @@ export class EmailVerificationModel
                 console.log(`${err.message}`)
             return (false);
         }
+    }
+    async getUserIdByToken(token: string) : Promise<number | undefined>
+    {
+       const result = await db.select({user_id: email_activation_tokens.user_id})
+                                .from(email_activation_tokens)
+                                .where(eq(email_activation_tokens.token, token))
+        const {user_id} = result[0]!
+        return(user_id ?? undefined)
+
+    }
+
+    async tokenExists(token: string) : Promise<boolean>
+    {
+        const result = await db.select().
+                            from(email_activation_tokens)
+                            .where(eq(email_activation_tokens.token, token))
+        return (result.length > 0)
+
     }
 }

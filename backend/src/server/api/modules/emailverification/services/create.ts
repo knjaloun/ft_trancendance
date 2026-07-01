@@ -5,19 +5,23 @@ import { email_verification_dto, type emailVerificationDTO} from '#dtos/emailVer
 import { EmailVerificationModel } from '#models/EmailVerificationModel.js';
 import { HttpError } from '#errors/HttpError.js';
 
-async function generateNewJwtToken(user_id: number): Promise<string | undefined>
+export async function generateNewJwt(user_id: number): Promise<string | undefined>
 {
-    const token : string = jwt.sign({user_id: user_id}, String(process.env.JWT_SECRET), {expiresIn : '24h'});
+    const token : string = jwt.sign(
+        {
+            user_id: user_id,
+            jti : crypto.randomUUID()
+        }
+        , String(process.env.JWT_SECRET), {expiresIn : '24h'});
     return (token ?? undefined)
 }
-
 
 async function CreateEmailVerificationData(email: string) : Promise<emailVerificationDTO | undefined>
 {
     const user_model = new UserModel()
     const user_id : number = await user_model.getId(email)
 
-    const jwt_token : string | undefined = await generateNewJwtToken(user_id)
+    const jwt_token : string | undefined = await generateNewJwt(user_id)
     const email_verification_data = email_verification_dto.safeParse({user_id: user_id, token: jwt_token})
     if (!email_verification_data.success)
         return (undefined)
@@ -34,31 +38,3 @@ export async function CreateEmailVerification(email:string)
     if (!email_verification_success)
          throw new HttpError('generating email activation token failed', 500);
 }
-
-export async function verifyJwtToken(token: string | undefined)
-{
-    if (!token)
-        throw new HttpError('Missing Jwt Token', 400);
-    try
-    {
-        const data = jwt.verify(token, String(process.env.JWT_SECRET));
-        console.log((data as jwt.JwtPayload).user_id)
-       
-    }
-    catch(err)
-    {
-        if (err instanceof Error)
-        {
-            if (err.name === 'TokenExpiredError')
-                throw new HttpError('Token expired Error', 401)
-            if (err.name === 'JsonWebTokenError')
-                throw new HttpError('invalid Jwt Token', 401)
-
-        }
-        console.log('unknown error')
-        
-    }
-}
-
-
-

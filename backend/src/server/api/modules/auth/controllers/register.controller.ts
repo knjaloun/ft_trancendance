@@ -3,7 +3,7 @@ import { type RegisterDTO} from '#dtos/registerDto.js'
 import {validateRequestBodyOrThrow} from '#utils/bodyValidator.js'
 import {registerUser} from '#auth/services/register.service.js'
 import { HttpError } from '#errors/HttpError.js'
-import {CreateEmailVerification} from '#emailVeri/services/emailVerification.service.js'
+import {CreateEmailVerification} from '#emailVeri/services/create.js'
 
 export async function registerController(req:Request, res:Response)
 {

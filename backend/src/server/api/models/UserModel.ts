@@ -22,6 +22,14 @@ export class UserModel {
         const {verified} = result[0]!
         return (verified ?? false)
     }
+     async isUserVerifiedById(user_id:number) : Promise<boolean>
+    {
+        const result = await db.select({verified: users.verified})
+                                .from(users)
+                                .where(eq(users.id, user_id))
+        const {verified} = result[0]!
+        return (verified ?? false)
+    }
     async getUserCredentials(user_email: string) : Promise<loginDTO | null>
     {
         const user = await db.select({email: users.email, password: users.password})
@@ -66,6 +74,16 @@ export class UserModel {
         } catch (err) {
             console.error(err);
             return false;
+        }
+    }
+    async activateUser(user_id: number) : Promise<boolean>
+    {
+        try{
+            await db.update(users).set({verified:true}).where(eq(users.id, user_id))
+            return (true)
+        }catch(err)
+        {
+            return (false)
         }
     }
 }

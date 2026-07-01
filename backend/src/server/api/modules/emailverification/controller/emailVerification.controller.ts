@@ -1,5 +1,6 @@
 import type {Request, Response} from 'express'
-import { verifyJwtToken } from '#emailVeri/services/emailVerification.service.js';
+import { markAccountAsVerified} from '#emailVeri/services/verify.js';
+import {verifyJwtToken} from '#emailVeri/services/verify.js'
 import type { HttpError } from '#errors/HttpError.js';
 
 export async function EmailVerificationController(req: Request, res: Response)
@@ -8,13 +9,13 @@ export async function EmailVerificationController(req: Request, res: Response)
     
     try
     {
-        await verifyJwtToken(String(token))
-         res.send('nothing');
+        const user_id  = await verifyJwtToken(String(token))
+        await markAccountAsVerified(user_id ?? undefined)     
+         res.send('account was activated');
     }
     catch (err)
     {
         console.log('bye');
         res.status((err as HttpError).status_code).send(`${(err as HttpError).message}`)
-    }
-   
+    } 
 }
