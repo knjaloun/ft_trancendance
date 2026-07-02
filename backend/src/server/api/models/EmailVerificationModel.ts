@@ -5,7 +5,7 @@ import { type emailVerificationDTO } from '#dtos/emailVerificationDto.js'
 
 export class EmailVerificationModel
 {
-    async UpdateToken(data: emailVerificationDTO) : Promise<boolean>
+    async updateToken(data: emailVerificationDTO) : Promise<boolean>
     {
         try
         {
@@ -42,11 +42,19 @@ export class EmailVerificationModel
     }
     async getUserIdByToken(token: string) : Promise<number | undefined>
     {
-       const result = await db.select({user_id: email_activation_tokens.user_id})
+        try
+        {
+            const result = await db.select({user_id: email_activation_tokens.user_id})
                                 .from(email_activation_tokens)
                                 .where(eq(email_activation_tokens.token, token))
-        const {user_id} = result[0]!
-        return(user_id ?? undefined)
+             const {user_id} = result[0]!
+            return(user_id ?? undefined)                   
+        }
+        catch(err)
+        {
+            return(undefined)
+        }
+       
 
     }
 
@@ -57,5 +65,17 @@ export class EmailVerificationModel
                             .where(eq(email_activation_tokens.token, token))
         return (result.length > 0)
 
+    }
+    async deleteVerification(user_id: number) : Promise<boolean>
+    {
+        try
+        {
+            await db.delete(email_activation_tokens).where(eq(email_activation_tokens.user_id, user_id))
+            return (true)
+        }
+        catch(err)
+        {
+            return false;
+        }
     }
 }

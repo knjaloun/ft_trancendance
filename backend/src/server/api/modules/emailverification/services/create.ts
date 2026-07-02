@@ -16,7 +16,7 @@ export async function generateNewJwt(user_id: number): Promise<string | undefine
     return (token ?? undefined)
 }
 
-async function CreateEmailVerificationData(email: string) : Promise<emailVerificationDTO | undefined>
+async function createEmailVerificationData(email: string) : Promise<emailVerificationDTO | undefined>
 {
     const user_model = new UserModel()
     const user_id : number = await user_model.getId(email)
@@ -28,9 +28,9 @@ async function CreateEmailVerificationData(email: string) : Promise<emailVerific
     return (email_verification_data.data)
 }
 
-export async function CreateEmailVerification(email:string)
+export async function createEmailVerification(email:string)
 {
-    const email_verification_data : emailVerificationDTO | undefined =   await CreateEmailVerificationData(email);
+    const email_verification_data : emailVerificationDTO | undefined =   await createEmailVerificationData(email);
     if (!email_verification_data)
         throw new HttpError('generating email activation data failed', 500);
     const email_verification_model = new EmailVerificationModel();

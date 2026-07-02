@@ -1,8 +1,8 @@
 import { db } from '#db/db.js'
 import { eq } from 'drizzle-orm'
 import { type RegisterDTO } from '#dtos/registerDto.js'
-import { type loginDTO } from '#dtos/loginDto.js'
 import { users } from '#drizzle/schema.js'
+import type {userDTO} from '#dtos/userDto.js'
 
 export class UserModel {
 
@@ -14,14 +14,6 @@ export class UserModel {
         const {id} = result[0]!
         return (id)
     }
-    async isUserVerified(email:string) : Promise<boolean>
-    {
-        const result = await db.select({verified: users.verified})
-                                .from(users)
-                                .where(eq(users.email, email))
-        const {verified} = result[0]!
-        return (verified ?? false)
-    }
      async isUserVerifiedById(user_id:number) : Promise<boolean>
     {
         const result = await db.select({verified: users.verified})
@@ -30,19 +22,23 @@ export class UserModel {
         const {verified} = result[0]!
         return (verified ?? false)
     }
-    async getUserCredentials(user_email: string) : Promise<loginDTO | null>
+    async getUser(user_email: string) : Promise<userDTO | null>
     {
-        const user = await db.select({email: users.email, password: users.password})
+        const result = await db.select({email: users.email, password: users.password, id: users.id, verified: users.verified})
                         .from(users)
                         .where(eq(users.email, user_email));
-        const { email, password } = user[0]!;
+        if (result.length <= 0)
+            return (null)
+        const { email, password, id, verified } = result[0]!;
         if (!password)
                 return (null)
-        const user_credentials: loginDTO = {
+        const user_data: userDTO = {
             email: email,
-            password : password
+            password : password,
+            id: id,
+            verified: verified ?? false
         }
-        return (user_credentials)
+        return (user_data)
     }
     /**
      * register the user in the database
