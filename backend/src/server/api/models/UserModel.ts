@@ -22,6 +22,21 @@ export class UserModel {
         const {verified} = result[0]!
         return (verified ?? false)
     }
+    async getverificationStatusAndEmail(user_id: number)
+    {
+
+        const result = await db.select({verified: users.verified, email: users.email})
+                                .from(users)
+                                .where(eq(users.id, user_id))
+        const {verified, email} = result[0]!
+
+        const data = {
+            verified : verified ?? false,
+            email: email
+        }
+        return (data);
+    }
+
     async getUser(user_email: string) : Promise<userDTO | null>
     {
         const result = await db.select({email: users.email, password: users.password, id: users.id, verified: users.verified})
