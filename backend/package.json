@@ -18,11 +18,15 @@
     "dotenv-expand": "^13.0.0",
     "drizzle-orm": "^0.45.2",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.22.5",
+    "nodemailer": "^9.0.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^8.0.1",
     "drizzle-kit": "^0.31.10",
     "tsx": "^4.22.4"
   },
@@ -30,9 +34,11 @@
     "#auth/*": "./dist/server/api/modules/auth/*",
     "#dtos/*": "./dist/server/dtos/*",
     "#utils/*": "./dist/server/api/utils/*",
-    "#db/*": "./dist/server/database/*",
+    "#db/*": "./dist/server/infrastructure/database/*",
     "#drizzle/*": "./dist/drizzle/*",
-    "#models/*":"./dist/server/api/models/*",
-    "#errors/*": "./dist/server/api/errors/*"
+    "#models/*": "./dist/server/api/models/*",
+    "#errors/*": "./dist/server/api/errors/*",
+    "#emailVeri/*": "./dist/server/api/modules/emailverification/*",
+     "#infra/*": "./dist/server/infrastructure/*"
   }
 }
