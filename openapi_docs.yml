@@ -1,4 +1,4 @@
-openapi: 3.0.4
+openapi: 3.0.0
 
 info:
   title: Car Renting API
@@ -11,7 +11,8 @@ servers:
 tags:
   - name: Authentication
     description: User registration and login
-
+  - name: Email Verification
+    description: user Email Verification
 paths:
   /api/register:
     post:
@@ -36,6 +37,8 @@ paths:
           description: Bad Request
 
   /api/login:
+
+    
     post:
       tags:
         - Authentication
@@ -50,8 +53,46 @@ paths:
                 password: password
       responses:
         "200":
-          description: Login successful
+          description: Login successfull
         "401":
           description: Wrong credentials
         "400":
           description: Bad Request
+  /api/verify/{token}:
+    post:
+      parameters:
+      - in: path
+        name: token
+        schema:
+          type: string
+        required: true
+        description: token of the user to verify
+      tags:
+        - Email Verification
+      summary: verify Email Adress
+      responses:
+        "200":
+          description: Verification Successfull
+        "401":
+          description: Invalid token
+        "500":
+          description: Server failure
+  /api/verify/refresh/{old_token}:
+    post:
+      parameters:
+      - in: path
+        name: old_token
+        schema:
+          type: string
+        required: true
+        description: token to be refreshed
+      tags:
+        - Email Verification
+      summary: refresh verification token
+      responses:
+        "200":
+          description: token refresh Successfull
+        "401":
+          description: Invalid token
+        "500":
+          description: Server failure
