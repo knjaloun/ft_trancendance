@@ -43,7 +43,6 @@ export class EmailSender
         });
 
         console.log("Message sent: %s", info.messageId);
-        // Preview URL is only available when using an Ethereal test account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
         return (true);
         } catch (err)
