@@ -4,7 +4,6 @@ import {UserModel} from '#models/UserModel.js'
 import { email_verification_dto, type emailVerificationDTO} from '#dtos/emailVerificationDto.js';
 import { EmailVerificationModel } from '#models/EmailVerificationModel.js';
 import { HttpError } from '#errors/HttpError.js';
-import {sendEmailVerificationMail} from '#infra/Email/emailSend.js'
 export async function generateNewJwt(user_id: number): Promise<string | undefined>
 {
     const token : string = jwt.sign(
@@ -28,7 +27,12 @@ async function createEmailVerificationData(email: string) : Promise<emailVerific
     return (email_verification_data.data)
 }
 
-export async function createEmailVerification(email:string)
+/**
+ * create a new Email verification Process , when an error accurs it throws an Error
+ * @param email 
+ * @returns the generated Jwt Token
+ */
+export async function createEmailVerification(email:string) : Promise<string>
 {
     const email_verification_data : emailVerificationDTO | undefined =   await createEmailVerificationData(email);
     if (!email_verification_data)
@@ -36,12 +40,6 @@ export async function createEmailVerification(email:string)
     const email_verification_model = new EmailVerificationModel();
     const email_verification_success = await email_verification_model.openNewVerification(email_verification_data);
     if (!email_verification_success)
-         throw new HttpError('generating email activation token failed', 500);
-
-    const sent_mail : boolean = await sendEmailVerificationMail(email_verification_data.token, email)
-    if (!sent_mail)
-        throw new HttpError('Failure at sending email to user', 500)
-
-    
-    
+         throw new HttpError('generating email activation token failed', 500);  
+    return (email_verification_data.token) 
 }

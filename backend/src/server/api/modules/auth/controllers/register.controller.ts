@@ -4,6 +4,7 @@ import {validateRequestBodyOrThrow} from '#utils/bodyValidator.js'
 import {registerUser} from '#auth/services/register.service.js'
 import { HttpError } from '#errors/HttpError.js'
 import {createEmailVerification} from '#emailVeri/services/create.js'
+import { sendEmailVerificationMail } from '#infra/Email/emailSend.js'
 
 export async function registerController(req:Request, res:Response)
 {
@@ -20,7 +21,8 @@ export async function registerController(req:Request, res:Response)
     {
         await validateRequestBodyOrThrow(registration_data);
         await registerUser(registration_data);
-        await createEmailVerification(registration_data.email);
+        const token : string = await createEmailVerification(registration_data.email);
+        await sendEmailVerificationMail(token, registration_data.email);
         res.status(201).send('registerd user succesfully')
     }
     catch(err)
