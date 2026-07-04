@@ -21,7 +21,7 @@ export async function loginController(req:Request, res:Response)
     {
         if (err instanceof HttpError)
         {
-            res.status(err.status_code ?? 400).send(`${err}`)
+            res.status(err.status_code ?? 400).send(`${err.name}`)
             return;
         }
         res.status(400).send(`unknown error`)

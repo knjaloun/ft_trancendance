@@ -2,8 +2,8 @@
 import {type loginDTO} from '#dtos/loginDto.js'
 import {UserModel} from '#models/UserModel.js'
 import bcrypt from 'bcrypt'
-import { HttpError } from '#errors/HttpError.js'
 import {type userDTO} from '#dtos/userDto.js'
+import { NotVerifiedError,  InvalidCredetialsError} from '#errors/loginErrors.js'
 
 async function isValidCredentials(login_data:loginDTO, user_data : userDTO) : Promise<boolean>
 {
@@ -19,10 +19,10 @@ export async function loginUser(login_data:loginDTO)
 
     const user : userDTO | null = await user_model.getUser(login_data.email)
     if (!user)
-        throw new HttpError('Invalid email or password!!', 401)
+        throw new InvalidCredetialsError('Invalid email or password!!')
     const is_valid_credentials : boolean = await isValidCredentials(login_data, user)
     if (!is_valid_credentials)
-           throw new HttpError('Invalid email or password!!', 401)
+           throw new InvalidCredetialsError('Invalid email or password!!')
     if (!user.verified)
-        throw new HttpError('user is not verified', 403)
+        throw new NotVerifiedError('user is not verified')
 }
