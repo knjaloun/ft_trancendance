@@ -6,7 +6,7 @@ import { EmailVerificationModel } from "#models/EmailVerificationModel.js";
 export async function verifyJwtToken(token: string | undefined) : Promise<number | undefined>
 {
     if (!token)
-        throw new HttpError('Missing Jwt', 400);
+        throw new HttpError('Missing Jwt', 401);
     try
     {
         const email_verification_model = new EmailVerificationModel();
@@ -42,7 +42,6 @@ export async function verifyJwtToken(token: string | undefined) : Promise<number
 
 export async function markAccountAsVerified(user_id: number | undefined)
 {
-    console.log('huuuuuuuuuuhuuuuuuuuuu')
     if (!user_id)
         throw new HttpError('failed to retrieve user_id', 500)
     const user_model = new UserModel()
