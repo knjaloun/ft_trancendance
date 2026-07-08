@@ -18,7 +18,6 @@ export function LoginPage()
                         <input type="email" placeholder="Password" className="bg-gray-700 pl-5 w-7/10 h-5/10 sm:w-7/10 
                         sm:h-7/10 rounded-3xl text-white focus:outline-none"/>
                      </div>
-
                 </form>
             </div>
             <div className="w-full h-2/10  flex flex-col">
@@ -28,8 +27,7 @@ export function LoginPage()
                 <div className="w-full h-1/2  flex justify-center">
                     <button className="border w-6/10 h-1/2 sm:w-7/10 sm:h-7/10 rounded-2xl text-red-500 hover:shadow-red-300 hover:shadow-md">Signup</button>
                 </div>
-            </div>
-            
+            </div>           
             </div>
        </div>
     )
