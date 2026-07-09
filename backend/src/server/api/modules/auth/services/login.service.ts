@@ -19,10 +19,10 @@ export async function loginUser(login_data:loginDTO)
 
     const user : userDTO | null = await user_model.getUser(login_data.email)
     if (!user)
-        throw new InvalidCredetialsError('Invalid email or password!!')
+        throw new InvalidCredetialsError('InvalidCredentialsError')
     const is_valid_credentials : boolean = await isValidCredentials(login_data, user)
     if (!is_valid_credentials)
-           throw new InvalidCredetialsError('Invalid email or password!!')
+           throw new InvalidCredetialsError('InvalidCredentialsError')
     if (!user.verified)
-        throw new NotVerifiedError('user is not verified')
+        throw new NotVerifiedError('NotVerifiedError')
 }

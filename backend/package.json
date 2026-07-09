@@ -14,6 +14,7 @@
   "dependencies": {
     "@types/express": "^5.0.6",
     "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "dotenv-expand": "^13.0.0",
     "drizzle-orm": "^0.45.2",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/nodemailer": "^8.0.1",
     "drizzle-kit": "^0.31.10",
@@ -39,6 +41,6 @@
     "#models/*": "./dist/server/api/models/*",
     "#errors/*": "./dist/server/api/errors/*",
     "#emailVeri/*": "./dist/server/api/modules/emailverification/*",
-     "#infra/*": "./dist/server/infrastructure/*"
+    "#infra/*": "./dist/server/infrastructure/*"
   }
 }

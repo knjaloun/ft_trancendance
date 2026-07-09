@@ -1,9 +1,9 @@
 #   vehicle Booking System Modules
 |     feature           |points                          |status                         |
 |----------------|-------------------------------|-----------------------------|
-|frontend Framework|1           |open 🔴            |
-|backend Framework |1            |open  🔴        |
-|ORM           |1|open 🔴|
+|frontend Framework|1           |closed  🟢         |
+|backend Framework |1            |closed      🟢 |
+|ORM           |1|closed 🟢|
 |Notification system|1|open 🔴
 |filtering,pagination,sorting|1|open 🔴
 |file upload System| 1 | open 🔴
@@ -17,4 +17,4 @@
 |email activation (module of choice) | 1 | open🔴
 |real time feature|2 | open🔴
 
-**0 / 18 points**
+**3 / 18 points**

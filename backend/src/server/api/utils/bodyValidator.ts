@@ -12,6 +12,6 @@ export async function validateRequestBodyOrThrow(data: RegisterDTO | loginDTO)
         auth_data = login_dto.safeParse(data)
     if (!auth_data.success)
     {
-        throw new HttpError('invalid Body', 400)
+        throw new HttpError('invalidBodyError', 400)
     }
 }

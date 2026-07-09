@@ -16,15 +16,15 @@ export async function loginController(req:Request, res:Response)
     {
         await validateRequestBodyOrThrow(login_data)
         await loginUser(login_data);
-        res.send('user can enter')
+        res.json({message: 'OK'})
     }catch(err)
     {
         if (err instanceof HttpError)
         {
-            res.status(err.status_code ?? 400).send(`${err.name}`)
+            res.status(err.status_code ?? 400).json({message: err.message})
             return;
         }
-        res.status(400).send(`unknown error`)
+        res.status(400).json({message: 'unknown Error'})
 
     }
 }
