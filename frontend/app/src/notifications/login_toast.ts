@@ -5,19 +5,24 @@ export function loginNotification(isError: boolean, ErrorType: string) {
     {
         toast.success('welcome')
         return;
+    }  
+    if (ErrorType === 'ServerError')
+    {
+        toast.error('Couldn\'t connect to server', {pauseOnHover: false});
+        return;
     }
     if (ErrorType === 'invalidBodyError') {
-        toast.error('email or password is Empty');
+        toast.error('email or password is Empty', {pauseOnHover: false});
         return;
     }
     if (ErrorType === 'InvalidCredentialsError') {
-        toast.error('invalid password or email');
+        toast.error('invalid password or email', {pauseOnHover: false});
         return;
     }
     if(ErrorType === 'NotVerifiedError')
     {
-         toast.info('account not verified')
+         toast.info('account not verified', {pauseOnHover: false})
          return;
     }
-    toast.error('unknown error')
+    toast.error('unknown error', {pauseOnHover: false})
 }
