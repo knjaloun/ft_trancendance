@@ -8,7 +8,7 @@ export function loginNotification(isError: boolean, ErrorType: string) {
     }  
     if (ErrorType === 'ServerError')
     {
-        toast.error('Couldn\'t connect to server', {pauseOnHover: false});
+        toast.error('Couldn\'t connect to the server', {pauseOnHover: false});
         return;
     }
     if (ErrorType === 'invalidBodyError') {
