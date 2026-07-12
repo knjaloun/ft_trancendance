@@ -1,5 +1,5 @@
 
-import { type RegisterDTO } from "#dtos/registerDto.js";
+import { type RegisterDTO } from "#auth/dtos/registerDto.js";
 import bcrypt from 'bcrypt'
 import {UserModel} from '#models/UserModel.js'
 import {HttpError} from '#errors/HttpError.js'

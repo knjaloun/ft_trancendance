@@ -1,5 +1,5 @@
-import { type RegisterDTO, register_dto} from '#dtos/registerDto.js'
-import {type loginDTO, login_dto} from '#dtos/loginDto.js'
+import { type RegisterDTO, register_dto} from '#auth/dtos/registerDto.js'
+import {type loginDTO, login_dto} from '#auth/dtos/loginDto.js'
 import { HttpError } from '#errors/HttpError.js';
 
 export async function validateRequestBodyOrThrow(data: RegisterDTO | loginDTO)

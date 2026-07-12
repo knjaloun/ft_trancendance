@@ -1,8 +1,8 @@
 import { db } from '#db/db.js'
 import { eq } from 'drizzle-orm'
-import { type RegisterDTO } from '#dtos/registerDto.js'
+import { type RegisterDTO } from '#auth/dtos/registerDto.js'
 import { users } from '#drizzle/schema.js'
-import type {userDTO} from '#dtos/userDto.js'
+import {type UserData} from '#auth/types/userType.js'
 
 export class UserModel {
 
@@ -22,7 +22,7 @@ export class UserModel {
         const {verified} = result[0]!
         return (verified ?? false)
     }
-    async getverificationStatusAndEmail(user_id: number)
+    async getverificationStatusAndEmail(user_id: number) : Promise<Pick<UserData, 'verified' | 'email'>>
     {
 
         const result = await db.select({verified: users.verified, email: users.email})
@@ -37,7 +37,7 @@ export class UserModel {
         return (data);
     }
 
-    async getUser(user_email: string) : Promise<userDTO | null>
+    async getUser(user_email: string) : Promise<UserData | null>
     {
         const result = await db.select({email: users.email, password: users.password, id: users.id, verified: users.verified})
                         .from(users)
@@ -47,7 +47,7 @@ export class UserModel {
         const { email, password, id, verified } = result[0]!;
         if (!password)
                 return (null)
-        const user_data: userDTO = {
+        const user_data: UserData = {
             email: email,
             password : password,
             id: id,

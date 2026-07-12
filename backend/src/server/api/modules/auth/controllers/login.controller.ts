@@ -1,5 +1,5 @@
 import type{Response, Request} from 'express'
-import {type loginDTO} from '#dtos/loginDto.js'
+import {type loginDTO} from '#auth/dtos/loginDto.js'
 import {validateRequestBodyOrThrow} from '#utils/bodyValidator.js'
 import {loginUser} from '#auth/services/login.service.js'
 import { HttpError } from '#errors/HttpError.js';

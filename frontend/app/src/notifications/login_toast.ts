@@ -11,11 +11,7 @@ export function loginNotification(isError: boolean, ErrorType: string) {
         toast.error('Couldn\'t connect to the server', {pauseOnHover: false});
         return;
     }
-    if (ErrorType === 'invalidBodyError') {
-        toast.error('email or password is Empty', {pauseOnHover: false});
-        return;
-    }
-    if (ErrorType === 'InvalidCredentialsError') {
+    if (ErrorType === 'InvalidCredentialsError' || ErrorType === 'invalidBodyError') {
         toast.error('invalid password or email', {pauseOnHover: false});
         return;
     }

@@ -1,7 +1,7 @@
 import { db } from '#db/db.js'
 import { eq } from 'drizzle-orm'
 import { email_activation_tokens } from '#drizzle/schema.js'
-import { type emailVerificationDTO } from '#dtos/emailVerificationDto.js'
+import { type emailVerificationDTO } from '#emailVeri/dtos/emailVerificationDto.js'
 
 export class EmailVerificationModel
 {

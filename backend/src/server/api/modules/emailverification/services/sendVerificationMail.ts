@@ -2,7 +2,7 @@ import { EmailSender } from '#infra/Email/EmailSender.js';
 import {generateEmailVerificationTemplate} from '#infra/Email/templates.js'
 import { ConnectionFailedError, EmailDeleveringError } from '#errors/EmailErrors.js';
 
-export async function sendEmailVerificationMail(token : string, target_email: string)
+export async function sendVerificationMail(token : string, target_email: string)
 {
     const email_verification_body : string = await generateEmailVerificationTemplate(token);
     const mail_sender = new EmailSender({subject : 'Confirm Your Email Address',
@@ -22,5 +22,4 @@ export async function sendEmailVerificationMail(token : string, target_email: st
         throw new EmailDeleveringError('failed to send Email')
     }
     return true;
-
 }
