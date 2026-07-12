@@ -1,7 +1,7 @@
 
 import jwt from 'jsonwebtoken'
 import {UserModel} from '#models/UserModel.js'
-import { email_verification_dto, type emailVerificationDTO} from '#dtos/emailVerificationDto.js';
+import { email_verification_dto, type emailVerificationDTO} from '#emailVeri/dtos/emailVerificationDto.js';
 import { EmailVerificationModel } from '#models/EmailVerificationModel.js';
 import { HttpError } from '#errors/HttpError.js';
 export async function generateNewJwt(user_id: number): Promise<string | undefined>

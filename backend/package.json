@@ -34,7 +34,6 @@
   },
   "imports": {
     "#auth/*": "./dist/server/api/modules/auth/*",
-    "#dtos/*": "./dist/server/dtos/*",
     "#utils/*": "./dist/server/api/utils/*",
     "#db/*": "./dist/server/infrastructure/database/*",
     "#drizzle/*": "./dist/drizzle/*",

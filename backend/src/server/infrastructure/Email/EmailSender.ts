@@ -1,4 +1,4 @@
-import { type emailSenderDTO } from "#dtos/emailSenderDto.js";
+import { type EmailPayload } from "#infra/Email/types/emailPayload.js";
 import { transporter } from "./emailTransporter.js";
 import nodemailer from 'nodemailer'
 
@@ -9,7 +9,7 @@ export class EmailSender
     private readonly from :string;
     private readonly to : string;
 
-    constructor(data : emailSenderDTO)
+    constructor(data : EmailPayload)
     {
         this.body = data.body
         this.subject = data.subject
