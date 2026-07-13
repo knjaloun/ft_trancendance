@@ -36,7 +36,10 @@ export function RegisterForm() {
                 </div>
             </div>
 
-            <div className=""></div>
+            <div className="w-full h-1/10 sm:mt-5">
+            <input type="checkbox" className="mr-2 ml-20"/>
+            <label className="text-white">I accept the <a href="" className="text-purple-600 underline">Term and Conditions </a></label>
+            </div>
         </form>
     )
 }
