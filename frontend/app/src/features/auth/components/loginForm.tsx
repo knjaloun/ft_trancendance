@@ -4,6 +4,7 @@ import { type ChangeEvent } from "react";
 import { loginUser } from '../api/login'
 import { loginNotification } from '#notifications/login_toast.ts'
 import { ToastContainer } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 
 export function LoginForm() {
@@ -35,11 +36,11 @@ export function LoginForm() {
             </div>
             <div className="w-full h-1/2 sm:h-6/10 flex flex-col sm:mt-5">
                 <div className="w-full h-1/2  flex justify-center ">
-                    <button type="button" onClick={handleLogin} className="border w-7/10 h-6/10 rounded-2xl sm:w-7/10 sm:h-8/10 text-purple-300 hover:shadow-purple-200 hover:shadow-md">Login</button>
+                    <button type="button" onClick={handleLogin} className="border w-7/10 h-6/10 rounded-2xl sm:w-7/10 sm:h-8/10 text-purple-300 hover:shadow-purple-200 hover:shadow-md cursor-pointer">Login</button>
                     <ToastContainer />
                 </div>
                 <div className="w-full h-1/2  flex justify-center">
-                    <button type="button" className="border w-7/10 sm:mt-2 h-6/10 sm:w-7/10 sm:h-8/10 rounded-2xl text-red-500 hover:shadow-red-300 hover:shadow-md">Signup</button>
+                    <Link to="/register" className="border w-7/10 sm:mt-2 h-6/10 sm:w-7/10 sm:h-8/10 rounded-2xl text-red-500 hover:shadow-red-300 hover:shadow-md flex justify-center items-center ">Signup</Link>
                 </div>
             </div>
         </form>

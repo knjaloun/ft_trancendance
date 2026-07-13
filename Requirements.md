@@ -7,7 +7,6 @@
 |Notification system|1|open 🔴
 |filtering,pagination,sorting|1|open 🔴
 |file upload System| 1 | open 🔴
-|multiple language support| 1 | open 🔴
 |oauth| 1 | open 🔴
 |2fa Authenticaion | 1 | open 🔴
 |multiple browser support | 1 | open 🔴
@@ -17,4 +16,4 @@
 |email activation (module of choice) | 1 | open🔴
 |real time feature|2 | open🔴
 
-**3 / 18 points**
+**3 / 17 points**
