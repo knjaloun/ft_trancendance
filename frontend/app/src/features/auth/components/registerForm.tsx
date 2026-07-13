@@ -16,16 +16,16 @@ export function RegisterForm() {
 
             </div>
 
-            <div className="w-full h-2/10 flex  items-center justify-center mt-5 sm:justify-start sm:ml-10">
+            <div className="w-full h-2/10 flex  items-center justify-center mt-5 sm:justify-start sm:ml-10 sm:h-2/12">
                 <input placeholder="Phone Number" type="text" className="bg-gray-700 pl-5 w-7/10 h-5/10 sm:h-8/10
                          rounded-4xl text-white focus:outline-none "/>
             </div>
-            <div className="w-full h-2/10 flex justify-center mt-5 sm:justify-start sm:ml-10">
+            <div className="w-full h-2/10 flex justify-center mt-5 sm:justify-start sm:ml-10 sm:h-2/12">
                 <input placeholder="John@example.com" type="email" className="bg-gray-700 pl-5 w-7/10 h-5/10 sm:h-8/10
                          rounded-4xl text-white focus:outline-none"/>
 
             </div>
-            <div className="w-full h-3/10 sm:mt-4">
+            <div className="w-full h-3/10 sm:mt-4 sm:h-3/10">
                 <div className="w-full h-1/2  flex justify-center sm:justify-start sm:ml-10">
                      <input placeholder="password" type="password" className="bg-gray-700 pl-5 w-7/10 h-6/10 sm:h-9/10
                          rounded-4xl text-white focus:outline-none"/>
@@ -35,6 +35,8 @@ export function RegisterForm() {
                          rounded-4xl text-white focus:outline-none"/>
                 </div>
             </div>
+
+            <div className=""></div>
         </form>
     )
 }
