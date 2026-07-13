@@ -54,8 +54,6 @@ export class EmailVerificationModel
         {
             return(undefined)
         }
-       
-
     }
 
     async tokenExists(token: string) : Promise<boolean>
