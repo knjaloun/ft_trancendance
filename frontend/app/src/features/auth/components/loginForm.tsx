@@ -12,7 +12,7 @@ export function LoginForm() {
 
         <form className="w-8/10 h-8/10  max-w-120">
             <div className="w-full h-1/10  font-sans font-bold text-3xl flex justify-center items-center">WELCOME BACK</div>
-            <div className="w-full h-2/10 mt-5 flex flex-col">
+            <div className="w-full h-2/10 mt-5 flex flex-col min-h-30">
                 <div className="w-full h-1/2 ">
                     <div className="w-full h-3/10">
                         <label>Email</label>
@@ -33,7 +33,7 @@ export function LoginForm() {
                 </div>
 
             </div>
-            <div className="w-full h-1/10 mt-6">
+            <div className="w-full h-1/10 mt-6 min-h-15">
                 <div className="w-full h-1/2 max-h-15">
                     <button type="button" onClick={handleLogin} className="w-8/10 h-full bg-red-400 hover:bg-red-300 text-white rounded-xl flex justify-center items-center cursor-pointer">Sign in</button>
                 </div>
