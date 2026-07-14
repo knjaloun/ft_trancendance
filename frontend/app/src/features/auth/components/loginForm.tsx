@@ -1,29 +1,13 @@
 
-import { useState } from 'react';
-import { type ChangeEvent } from "react";
-import { loginUser } from '../api/login'
-import { loginNotification } from '#notifications/login_toast.ts'
 import { ToastContainer } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { useAuth } from '#auth/hooks/useAuth.ts';
 
 
 
 export function LoginForm() {
     
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
-    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    }
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    }
-
-    const handleLogin = async () => {
-        const result = await loginUser(email, password);
-        loginNotification(result.isError, result.message)
-    }
-    
+    const {email, password, handleEmailChange,handlePasswordChange,handleLogin} = useAuth()   
     return (
 
         <form className="w-8/10 h-8/10  max-w-120">
@@ -34,7 +18,7 @@ export function LoginForm() {
                         <label>Email</label>
                     </div>
                     <div className="w-full h-7/10 mt-2">
-                        <input type="email" placeholder="John@example.com" onChange={handleEmailChange} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
+                        <input type="email" placeholder="John@example.com" onChange={handleEmailChange} value={email} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
                     </div>
                 </div>
 
@@ -43,7 +27,7 @@ export function LoginForm() {
                         <label>Password</label>
                     </div>
                     <div className="w-full h-7/10 mt-2">
-                        <input type="password" placeholder="Password" onChange={handlePasswordChange} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
+                        <input type="password" placeholder="Password" onChange={handlePasswordChange} value={password} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
                     </div>
 
                 </div>
