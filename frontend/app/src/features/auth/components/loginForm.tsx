@@ -17,7 +17,7 @@ export function LoginForm() {
                     <div className="w-full h-3/10">
                         <label>Email</label>
                     </div>
-                    <div className="w-full h-7/10 mt-2">
+                    <div className="w-full h-7/10 mt-2 max-h-20">
                         <input type="email" placeholder="John@example.com" onChange={handleEmailChange} value={email} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
                     </div>
                 </div>
@@ -26,7 +26,7 @@ export function LoginForm() {
                     <div className="w-full h-3/10">
                         <label>Password</label>
                     </div>
-                    <div className="w-full h-7/10 mt-2">
+                    <div className="w-full h-7/10 mt-2 max-h-20">
                         <input type="password" placeholder="Password" onChange={handlePasswordChange} value={password} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
                     </div>
 
@@ -34,10 +34,10 @@ export function LoginForm() {
 
             </div>
             <div className="w-full h-1/10 mt-6">
-                <div className="w-full h-1/2 ">
+                <div className="w-full h-1/2 max-h-15">
                     <button type="button" onClick={handleLogin} className="w-8/10 h-full bg-red-400 hover:bg-red-300 text-white rounded-xl flex justify-center items-center cursor-pointer">Sign in</button>
                 </div>
-                <div className="w-full h-1/2  mt-3">
+                <div className="w-full h-1/2  mt-3 max-h-15">
                     <button type="button" className="w-8/10 h-full  hover:bg-gray-100 bg-white rounded-xl flex justify-center items-center cursor-pointer">
 
                         <img src="/icons/google.png" className="h-5 w-5 ml-10"></img><span className="w-9/10 h-full flex justify-start items-center ml-5 text-[90%] ">Sign in with Google</span></button>
