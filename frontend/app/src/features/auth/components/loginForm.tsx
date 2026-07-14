@@ -12,12 +12,12 @@ export function LoginForm() {
 
         <form className="w-8/10 h-8/10  max-w-120">
             <div className="w-full h-1/10  font-sans font-bold text-3xl flex justify-center items-center">WELCOME BACK</div>
-            <div className="w-full h-2/10 mt-5">
+            <div className="w-full h-2/10 mt-5 flex flex-col">
                 <div className="w-full h-1/2 ">
                     <div className="w-full h-3/10">
                         <label>Email</label>
                     </div>
-                    <div className="w-full h-7/10 mt-2">
+                    <div className="w-full h-7/10 mt-2 flex">
                         <input type="email" placeholder="John@example.com" onChange={handleEmailChange} value={email} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
                     </div>
                 </div>
