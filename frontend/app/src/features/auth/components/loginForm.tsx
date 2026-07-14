@@ -4,9 +4,12 @@ import { type ChangeEvent } from "react";
 import { loginUser } from '../api/login'
 import { loginNotification } from '#notifications/login_toast.ts'
 import { ToastContainer } from 'react-toastify';
+import { Link } from 'react-router-dom';
+
 
 
 export function LoginForm() {
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,28 +23,46 @@ export function LoginForm() {
         const result = await loginUser(email, password);
         loginNotification(result.isError, result.message)
     }
+    
     return (
 
-        <form className="w-full h-full ">
-            <div className="w-full h-1/2 sm:h-6/10 ">
-                <div className="w-full h-1/2 flex justify-center mt-10">
-                    <input type="email" placeholder="John@example.com" value={email} onChange={handleEmailChange} className="bg-gray-700 
-                         w-7/10 h-7/10 sm:h-9/10 sm:w-7/10 rounded-3xl text-white focus:outline-none pl-5"/>
+        <form className="w-8/10 h-8/10  max-w-120">
+            <div className="w-full h-1/10  font-sans font-bold text-3xl flex justify-center items-center">WELCOME BACK</div>
+            <div className="w-full h-2/10 mt-5">
+                <div className="w-full h-1/2 ">
+                    <div className="w-full h-3/10">
+                        <label>Email</label>
+                    </div>
+                    <div className="w-full h-7/10 mt-2">
+                        <input type="email" placeholder="John@example.com" onChange={handleEmailChange} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
+                    </div>
                 </div>
-                <div className="w-full h-1/2  flex justify-center">
-                    <input type="password" placeholder="Password" value={password} onChange={handlePasswordChange} className="bg-gray-700 pl-5 w-7/10 h-7/10 sm:w-7/10 
-                        sm:h-9/10 rounded-3xl text-white focus:outline-none sm:mt-2"/>
+
+                <div className="w-full h-1/2 ">
+                    <div className="w-full h-3/10">
+                        <label>Password</label>
+                    </div>
+                    <div className="w-full h-7/10 mt-2">
+                        <input type="password" placeholder="Password" onChange={handlePasswordChange} className="bg-white w-8/10 h-7/10 focus:outline-none rounded-xl pl-5" />
+                    </div>
+
                 </div>
+
             </div>
-            <div className="w-full h-1/2 sm:h-6/10 flex flex-col sm:mt-5">
-                <div className="w-full h-1/2  flex justify-center ">
-                    <button type="button" onClick={handleLogin} className="border w-7/10 h-6/10 rounded-2xl sm:w-7/10 sm:h-8/10 text-purple-300 hover:shadow-purple-200 hover:shadow-md">Login</button>
-                    <ToastContainer />
+            <div className="w-full h-1/10 mt-6">
+                <div className="w-full h-1/2 ">
+                    <button type="button" onClick={handleLogin} className="w-8/10 h-full bg-red-400 hover:bg-red-300 text-white rounded-xl flex justify-center items-center cursor-pointer">Sign in</button>
                 </div>
-                <div className="w-full h-1/2  flex justify-center">
-                    <button type="button" className="border w-7/10 sm:mt-2 h-6/10 sm:w-7/10 sm:h-8/10 rounded-2xl text-red-500 hover:shadow-red-300 hover:shadow-md">Signup</button>
+                <div className="w-full h-1/2  mt-3">
+                    <button type="button" className="w-8/10 h-full  hover:bg-gray-100 bg-white rounded-xl flex justify-center items-center cursor-pointer">
+
+                        <img src="/icons/google.png" className="h-7/10 w-1/10 ml-10"></img><span className="w-9/10 h-full flex justify-start items-center ml-5">Sign in with Google</span></button>
                 </div>
+
             </div>
+
+            <div className="w-full h-1/16 mt-10 text-sm "> <p>you dont have an Account?<Link to="/register" className="text-red-600 ml-2">Sign up for free!</Link></p></div>
+            <ToastContainer/>
         </form>
     )
 }
