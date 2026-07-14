@@ -40,7 +40,7 @@ export function LoginForm() {
                 <div className="w-full h-1/2  mt-3">
                     <button type="button" className="w-8/10 h-full  hover:bg-gray-100 bg-white rounded-xl flex justify-center items-center cursor-pointer">
 
-                        <img src="/icons/google.png" className="h-7/10 w-1/10 ml-10"></img><span className="w-9/10 h-full flex justify-start items-center ml-5">Sign in with Google</span></button>
+                        <img src="/icons/google.png" className="h-5 w-5 ml-10"></img><span className="w-9/10 h-full flex justify-start items-center ml-5 text-[90%] ">Sign in with Google</span></button>
                 </div>
 
             </div>
