@@ -59,7 +59,7 @@ export function RegisterForm() {
                 </div>
                 <div className="w-full h-1/7 mt-7 sm:mt-3 min-h-18 max-h-40">
                     <div className="w-full h-1/2">
-                        <button type="button" className="w-8/10 h-8/10 bg-red-400 rounded-xl hover:bg-red-300 cursor-pointer">Register</button>
+                        <button type="button" className="w-8/10 h-8/10 bg-red-400 rounded-xl hover:bg-red-300 cursor-pointer text-white">Register</button>
 
                     </div>
                     <div className="w-full h-1/2">
