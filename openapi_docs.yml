@@ -30,6 +30,7 @@ paths:
                 email: JohnDoe@example.com
                 password: password
                 phone_number: "+111111111"
+                agreed_terms: true
       responses:
         "201":
           description: Success
