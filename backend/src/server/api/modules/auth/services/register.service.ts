@@ -10,6 +10,8 @@ import {HttpError} from '#errors/HttpError.js'
  */
 export async function registerUser(data:RegisterDTO)
 {
+    if(!data.agreed_terms)
+        throw new HttpError('Term_Not-Accepted', 403)
     const salt_round = 10
     const salt = await bcrypt.genSalt(salt_round)
     const hashed_password = await bcrypt.hash(data.password, salt)

@@ -8,14 +8,15 @@ import { sendVerificationMail } from '#emailVeri/services/sendVerificationMail.j
 
 export async function registerController(req:Request, res:Response)
 {
-    const {email, first_name, last_name, password, phone_number} = req.body || {}
+    const {email, first_name, last_name, password, phone_number, agreed_terms} = req.body || {}
 
     const registration_data : RegisterDTO = {
         email: email,
         first_name:first_name,
         last_name: last_name,
         password: password,
-        phone_number: phone_number
+        phone_number: phone_number,
+        agreed_terms: agreed_terms
     }
     try
     {
@@ -23,16 +24,16 @@ export async function registerController(req:Request, res:Response)
         await registerUser(registration_data);
         const token : string = await createEmailVerification(registration_data.email);
         await sendVerificationMail(token, registration_data.email);
-        res.status(201).send('registerd user succesfully')
+        res.status(201).json({message: 'ok'});
     }
     catch(err)
     {
         if (err instanceof HttpError)
         {
-             res.status(err.status_code ?? 400).send(`${err.message}`)
+             res.status(err.status_code ?? 400).json({message: err.message});
              return;
         }
-        res.status(400).send('unknow error')
+        res.status(400).json({message:'Unknown_Error'})
     }
     
 }
