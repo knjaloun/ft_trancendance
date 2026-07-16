@@ -5,7 +5,7 @@ export type RegisterData = {
         phone_number: string,
         email: string,
         password: string,
-        agree_to_terms: boolean
+        agree_to_terms: boolean,
 }
 
 export type RegisterAction = {

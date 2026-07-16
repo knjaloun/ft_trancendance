@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom"
 import  {useRegister} from '#auth/hooks/useRegister.ts'
 
+
 export function RegisterForm() {
 
     const {state, handleFirstNameChange, 
         handleLastNameChange, 
         handlePhoneNumberNameChange, 
         handleEmailChange, 
-        handlePasswordChange, 
-        handleAgreeToTermsChange} = useRegister()
+        handlePasswordChange,
+        handleAgreeToTermsChange,
+        handleRegistration,
+        isLoading} = useRegister()
     return (
         <form className="w-8/10 h-full  max-w-120">
             <div className="w-full h-1/10  font-sans font-bold text-xl sm:text-2xl flex justify-center items-center">CREATE ACCOUNT</div>
@@ -63,7 +66,7 @@ export function RegisterForm() {
                 </div>
                 <div className="w-full h-1/7 mt-7 sm:mt-3 min-h-18 max-h-40">
                     <div className="w-full h-1/2">
-                        <button type="button" className="w-8/10 h-8/10 bg-red-400 rounded-xl hover:bg-red-300 cursor-pointer text-white">Register</button>
+                        <button disabled={isLoading} type="button" onClick={handleRegistration} className={`w-8/10 h-8/10 bg-red-400 rounded-xl ${ !isLoading ? "hover:bg-red-300" : ""} cursor-pointer text-white`}>{isLoading ? "loading..." : "register"}</button>
 
                     </div>
                     <div className="w-full h-1/2">

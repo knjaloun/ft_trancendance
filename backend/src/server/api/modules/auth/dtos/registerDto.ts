@@ -6,7 +6,7 @@ export const register_dto = z.object({
     last_name: z.string().min(1),
     password: z.string().min(8),
     phone_number: z.e164(),
-    agreed_terms: z.boolean() 
+    agree_to_terms: z.boolean() 
 })
 
 export type RegisterDTO = z.infer<typeof register_dto>

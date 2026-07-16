@@ -8,7 +8,7 @@ import { sendVerificationMail } from '#emailVeri/services/sendVerificationMail.j
 
 export async function registerController(req:Request, res:Response)
 {
-    const {email, first_name, last_name, password, phone_number, agreed_terms} = req.body || {}
+    const {email, first_name, last_name, password, phone_number, agree_to_terms} = req.body || {}
 
     const registration_data : RegisterDTO = {
         email: email,
@@ -16,7 +16,7 @@ export async function registerController(req:Request, res:Response)
         last_name: last_name,
         password: password,
         phone_number: phone_number,
-        agreed_terms: agreed_terms
+        agree_to_terms: agree_to_terms
     }
     try
     {

@@ -30,7 +30,8 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/nodemailer": "^8.0.1",
     "drizzle-kit": "^0.31.10",
-    "tsx": "^4.22.4"
+    "tsx": "^4.22.4",
+    "typescript": "^7.0.2"
   },
   "imports": {
     "#auth/*": "./dist/server/api/modules/auth/*",

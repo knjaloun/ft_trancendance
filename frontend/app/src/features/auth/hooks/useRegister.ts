@@ -1,6 +1,8 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { type ChangeEvent } from "react";
-import type { RegisterData, RegisterAction } from "#auth/types.ts";
+import type { RegisterData, RegisterAction } from "#auth/types/registerTypes.ts";
+import { registerUser } from "#auth/api/register.ts";
+import { registerNotification } from "#notifications/auth_toast.ts";
 
 export function useRegister()
 {
@@ -27,11 +29,13 @@ export function useRegister()
     }
 
     const [state, dispatch] = useReducer(reducer, initial_value)
+    const [isLoading, setLoading] = useState(false)
 
     const handleFirstNameChange = (e:ChangeEvent<HTMLInputElement>) =>
     {
         dispatch({type: 'updateFirstName', field:'first_name', value: e.target.value})
     }
+
     const handleLastNameChange = (e:ChangeEvent<HTMLInputElement>) =>
     {
         dispatch({type: 'updateLastName', field:'last_name', value: e.target.value})
@@ -53,7 +57,23 @@ export function useRegister()
 
      const handleAgreeToTermsChange = (e:ChangeEvent<HTMLInputElement>) =>
     {
-        dispatch({type: 'updateAgreeToTerms', field:'agree_to_terms', value: e.target.value})
+        dispatch({type: 'updateAgreeToTerms', field:'agree_to_terms', value: e.target.checked})
     }
-    return {state, handleFirstNameChange, handleLastNameChange, handlePhoneNumberNameChange, handleEmailChange, handlePasswordChange, handleAgreeToTermsChange}
+
+    const handleRegistration = async () =>
+    {
+        setLoading(true)
+        const status_code : number = await registerUser({
+            first_name: state.first_name,
+            last_name : state.last_name,
+            phone_number: state.phone_number,
+            email: state.email,
+            password: state.password,
+            agree_to_terms: state.agree_to_terms,
+        }, isLoading);
+        setLoading(false)
+        registerNotification(status_code);
+
+    }
+    return {state, handleFirstNameChange, handleLastNameChange, handlePhoneNumberNameChange, handleEmailChange, handlePasswordChange, handleAgreeToTermsChange, handleRegistration, isLoading}
 }
