@@ -13,7 +13,7 @@ export class InvalidCredetialsError extends HttpError{
 export class NotVerifiedError extends HttpError{
     constructor(message: string)
     {
-        super(message, 401 )
+        super(message, 403 )
         this.name = 'NotVerifiedError'
     }
 }

@@ -1,5 +1,4 @@
 
-import { ToastContainer } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { useAuth } from '#auth/hooks/useAuth.ts';
 
@@ -7,7 +6,7 @@ import { useAuth } from '#auth/hooks/useAuth.ts';
 
 export function LoginForm() {
     
-    const {email, password, handleEmailChange,handlePasswordChange,handleLogin} = useAuth()   
+    const {email, password, handleEmailChange,handlePasswordChange,handleLogin, isLoading} = useAuth()   
     return (
 
         <form className="w-8/10 h-8/10  max-w-120">
@@ -35,7 +34,7 @@ export function LoginForm() {
             </div>
             <div className="w-full h-1/10 mt-6 min-h-15">
                 <div className="w-full h-1/2 max-h-15">
-                    <button type="button" onClick={handleLogin} className="w-8/10 h-full bg-red-400 hover:bg-red-300 text-white rounded-xl flex justify-center items-center cursor-pointer">Sign in</button>
+                    <button type="button" onClick={handleLogin} disabled={isLoading} className={`w-8/10 h-full bg-red-400 ${!isLoading ? "hover:bg-red-300" : ""} text-white rounded-xl flex justify-center items-center cursor-pointer`}>{isLoading ? "loading..." : "Sign in"}</button>
                 </div>
                 <div className="w-full h-1/2  mt-3 max-h-15">
                     <button type="button" className="w-8/10 h-full  hover:bg-gray-100 bg-white rounded-xl flex justify-center items-center cursor-pointer">
@@ -46,7 +45,6 @@ export function LoginForm() {
             </div>
 
             <div className="w-full h-1/16 mt-10 text-sm "> <p>you dont have an Account?<Link to="/register" className="text-red-600 ml-2">Sign up for free!</Link></p></div>
-            <ToastContainer/>
         </form>
     )
 }
