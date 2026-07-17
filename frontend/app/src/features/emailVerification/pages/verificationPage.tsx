@@ -1,12 +1,13 @@
-
-
-
-
-
-function handleVerifyEmail()
+import { verifyEmail } from "#emailVeri/api/verify.ts";
+import { type ApiResponse } from "#shared/types/apiResponse.ts";
+import { ToastContainer } from "react-toastify";
+import { emailVerificationNotification } from "#emailVeri/notification/emailVerificationNotification.ts";
+async function handleVerifyEmail()
 {
     const activation_token:string = new URLSearchParams(window.location.search).get('token');
     console.log(activation_token)
+    const response : ApiResponse = await verifyEmail(activation_token);
+    emailVerificationNotification(response);
 }
 
 export function EmailVerificationPage() {
@@ -27,6 +28,7 @@ export function EmailVerificationPage() {
                 </div>
                
             </div>
+            <ToastContainer/>
         </div>
     )
 }

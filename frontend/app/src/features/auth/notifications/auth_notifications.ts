@@ -41,6 +41,7 @@ export function registerNotification(api_response: ApiResponse) {
         return;
     }
     if (api_response.message === 'RegisterError' || api_response.message === 'invalidBodyError') {
+        console.log(api_response.message)
         toast.error('failed to register user', {pauseOnHover: false});
         return;
     }
