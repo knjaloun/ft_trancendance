@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { type ChangeEvent } from "react";
 import { loginUser } from "#auth/api/login.ts";
-import { loginNotification } from "#notifications/auth_toast.ts";
+import { loginNotification } from "#auth/notifications/auth_notifications.ts";
+import { type ApiResponse } from "#shared/types/apiResponse.ts";
 
 export function useAuth()
 {
@@ -17,9 +18,9 @@ export function useAuth()
     
         const handleLogin = async () => {
             setLoading(true)
-            const status_code = await loginUser(email, password);
+            const response: ApiResponse = await loginUser(email, password);
             setLoading(false)
-            loginNotification(status_code)
+            loginNotification(response)
         }
     return {
         email,

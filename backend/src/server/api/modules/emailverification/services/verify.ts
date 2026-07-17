@@ -14,8 +14,6 @@ export async function verifyJwtToken(token: string | undefined) : Promise<number
         console.log(`token exists : ${token_exists}`)
         if (!token_exists)
         {
-            console.log('here im quitting vro');
-            
             throw new HttpError('invalid JWT', 401)
         }
         const data = jwt.verify(token, String(process.env.JWT_SECRET));
@@ -25,15 +23,13 @@ export async function verifyJwtToken(token: string | undefined) : Promise<number
     }
     catch(err)
     {
-        console.log('entering here my friend');
         if (err instanceof HttpError)
         {
             if (err.name === 'TokenExpiredError')
-                throw new HttpError('Token expired Error', 401)
+                throw new HttpError('TokenExpiredError', 401)
             if (err.name === 'JsonWebTokenError')
-                throw new HttpError('invalid Jwt Token', 401)
+                throw new HttpError('TokenInvalidError', 401)
             throw new HttpError(err.message, err.status_code)
-
         }
         console.log('unknown error')
         return (undefined)       

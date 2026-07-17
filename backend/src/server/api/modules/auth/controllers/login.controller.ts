@@ -24,7 +24,7 @@ export async function loginController(req:Request, res:Response)
             res.status(err.status_code ?? 400).json({message: err.message})
             return;
         }
-        res.status(400).json({message: 'unknown Error'})
+        res.status(400).json({message: 'UnknownError'})
 
     }
 }

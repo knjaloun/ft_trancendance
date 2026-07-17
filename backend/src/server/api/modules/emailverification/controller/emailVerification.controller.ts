@@ -6,18 +6,18 @@ import { deleteVerification } from '#emailVeri/services/delete.js';
 
 export async function EmailVerificationController(req: Request, res: Response)
 {
-    const {token} = req.query;
+    const {token} = req.body;
     
     try
     {
         const user_id  = await verifyJwtToken(String(token))
         await markAccountAsVerified(user_id ?? undefined)
         await deleteVerification(user_id!)     
-         res.send('account was activated');
+         res.json({message: 'ok'});
     }
     catch (err)
     {
         console.log('bye');
-        res.status((err as HttpError).status_code).send(`${(err as HttpError).message}`)
+        res.status((err as HttpError).status_code).json({message : `${(err as HttpError).message}`})
     } 
 }

@@ -2,7 +2,8 @@ import { useReducer, useState } from "react";
 import { type ChangeEvent } from "react";
 import type { RegisterData, RegisterAction } from "#auth/types/registerTypes.ts";
 import { registerUser } from "#auth/api/register.ts";
-import { registerNotification } from "#notifications/auth_toast.ts";
+import { registerNotification } from "#auth/notifications/auth_notifications.ts";
+import { type ApiResponse } from "#shared/types/apiResponse.ts";
 
 export function useRegister()
 {
@@ -63,7 +64,7 @@ export function useRegister()
     const handleRegistration = async () =>
     {
         setLoading(true)
-        const status_code : number = await registerUser({
+        const response: ApiResponse = await registerUser({
             first_name: state.first_name,
             last_name : state.last_name,
             phone_number: state.phone_number,
@@ -72,7 +73,7 @@ export function useRegister()
             agree_to_terms: state.agree_to_terms,
         }, isLoading);
         setLoading(false)
-        registerNotification(status_code);
+        registerNotification(response);
 
     }
     return {state, handleFirstNameChange, handleLastNameChange, handlePhoneNumberNameChange, handleEmailChange, handlePasswordChange, handleAgreeToTermsChange, handleRegistration, isLoading}

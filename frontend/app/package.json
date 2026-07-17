@@ -34,6 +34,8 @@
   },
   "imports": {
     "#notifications/*": "./src/notifications/*",
-    "#auth/*": "./src/features/auth/*"
+    "#auth/*": "./src/features/auth/*",
+    "#emailVeri/*": "./src/features/emailVerification/*",
+    "#shared/*" :"./src/shared/*"
   }
 }
