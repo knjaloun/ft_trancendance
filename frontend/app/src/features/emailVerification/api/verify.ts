@@ -3,7 +3,7 @@ import { type ApiResponse } from "#shared/types/apiResponse.ts";
 export async function verifyEmail(token: string | null) : Promise<ApiResponse>
 {
     if (!token)
-        return({message : 'TokenInvalidError', sucess: false})
+        return({message : 'TokenInvalidError', success: false})
     const email_verification_payload = JSON.stringify({token: token})
     try
     {
@@ -15,9 +15,9 @@ export async function verifyEmail(token: string | null) : Promise<ApiResponse>
             body : email_verification_payload
         });
         const response_data = await response.json()
-        return({message : response_data.message, sucess: response.ok})
+        return({message : response_data.message, success: response.ok})
     }catch(err)
     {
-        return ({message : 'ConnectionRefusedError', sucess:false})
+        return ({message : 'ConnectionRefusedError', success:false})
     }
 }

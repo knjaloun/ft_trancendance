@@ -10,12 +10,8 @@ export async function EmailVerificationController(req: Request, res: Response)
     
     try
     {
-        console.log('error at token verification');
         const user_id  = await verifyJwtToken(String(token))
-
-          console.log('error at matking');
         await markAccountAsVerified(user_id ?? undefined)
-          console.log('error at deleting verification');
         await deleteVerification(user_id!)     
          res.json({message: 'ok'});
     }

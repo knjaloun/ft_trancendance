@@ -11,18 +11,17 @@ export async function verifyJwtToken(token: string | undefined) : Promise<number
     {
         const email_verification_model = new EmailVerificationModel();
         const token_exists : boolean = await email_verification_model.tokenExists(token)
-        console.log(`token exists : ${token_exists}`)
         if (!token_exists)
         {
             throw new HttpError('InvalidJWTError', 401)
         }
         const data = jwt.verify(token, String(process.env.JWT_SECRET));
-        console.log((data as jwt.JwtPayload).user_id)
         return ((data as jwt.JwtPayload).user_id)
        
     }
     catch(err)
     {
+        console.log('here vro');
         if (err instanceof HttpError)
         {
             if (err.name === 'TokenExpiredError')

@@ -12,10 +12,10 @@ export async function loginUser(email: string | undefined, password: string | un
         });
        
         const response_data = await response.json()
-        return ({message: response_data.message, sucess: response.ok})
+        return ({message: response_data.message, success: response.ok})
     } catch (e) {
         console.log(e)
-        return ({message: 'ConnectionRefusedError', sucess: false})
+        return ({message: 'ConnectionRefusedError', success: false})
     }
 
 }

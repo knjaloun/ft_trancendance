@@ -33,7 +33,7 @@ export async function registerController(req:Request, res:Response)
              res.status(err.status_code ?? 400).json({message: err.message});
              return;
         }
-        res.status(400).json({message:'Unknown_Error'})
+        res.status(400).json({message:'UnknownError'})
     }
     
 }
