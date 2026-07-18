@@ -12,11 +12,11 @@ const email_verification_notifications = {
     TokenExpiredError : () => { toast.error('link has expired', toast_options);},
     AccountAlreadyVerified : () => { toast.warning('account is Already verified', toast_options);},
     ServerError : () => {  toast.error('something went wrong , try again later', toast_options);},
-    ConnectionRefusedError : () => {toast.error('Service Unavaible', toast_options);}
+    ConnectionRefusedError : () => {toast.error('Service Unavaible', toast_options);},
+    EmailDeleveringError : () => {toast.error('Failed to deliver new Activation Link', toast_options);}
 }
 
 export function emailVerificationNotification(api_response: ApiResponse) {
-    console.log(api_response.message)
     if (api_response.success) {
         toast.success('account verified', toast_options);
         return;
@@ -27,4 +27,17 @@ export function emailVerificationNotification(api_response: ApiResponse) {
             toast.error('Unknown error', toast_options);
         }
 
+}
+
+export function refreshActivationLinkNotification(api_response: ApiResponse)
+{
+     if (api_response.success) {
+        toast.success('sent new Activation link to your inbox', toast_options);
+        return;
+    }
+     if (api_response.message in email_verification_notifications) {
+            email_verification_notifications[api_response.message]();
+        } else {
+            toast.error('Unknown error', toast_options);
+        }
 }

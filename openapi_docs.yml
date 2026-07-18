@@ -83,7 +83,7 @@ paths:
           description: Server failure
 
   /api/verify/refresh:
-    post:
+    patch:
       tags:
         - Email Verification
       summary: Refresh verification token

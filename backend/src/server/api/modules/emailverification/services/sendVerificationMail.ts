@@ -13,13 +13,13 @@ export async function sendVerificationMail(token : string, target_email: string)
     if (!can_send_email)
     {
         console.log('failure at building email connection with user')
-        throw new ConnectionFailedError('failed to connect with user')
+        throw new ConnectionFailedError('EmailDeleveringError')
     }
     const email_send_success : boolean = await mail_sender.sendMail()
     if (!email_send_success)
     {
         console.log('failure at sending email to user')
-        throw new EmailDeleveringError('failed to send Email')
+        throw new EmailDeleveringError('EmailDeleveringError')
     }
     return true;
 }

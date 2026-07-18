@@ -10,11 +10,11 @@ export async function refreshJwtTokenController(req:Request, res:Response)
    {
         const data = await refreshJwtT(String(token));
         await sendVerificationMail(data.token, data.email);
-        res.send('user token was refreshed');
+        res.json({message: 'ok'})
    }
    catch(err)
    {
         console.log((err as HttpError).message)
-        res.status((err as HttpError).status_code).send((err as HttpError).message)
+        res.status((err as HttpError).status_code).json({message: (err as HttpError).message});
    }
 }
