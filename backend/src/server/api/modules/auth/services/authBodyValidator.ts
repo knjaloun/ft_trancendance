@@ -2,7 +2,7 @@ import { type RegisterDTO, register_dto} from '#auth/dtos/registerDto.js'
 import {type loginDTO, login_dto} from '#auth/dtos/loginDto.js'
 import { HttpError } from '#errors/HttpError.js';
 
-export async function validateRequestBodyOrThrow(data: RegisterDTO | loginDTO)
+export async function validateAuthRequestBodyOrThrow(data: RegisterDTO | loginDTO)
 {
     let auth_data;
     let is_login : boolean = false;

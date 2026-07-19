@@ -21,5 +21,4 @@ export async function sendVerificationMail(token : string, target_email: string)
         console.log('failure at sending email to user')
         throw new EmailDeleveringError('EmailDeleveringError')
     }
-    return true;
 }

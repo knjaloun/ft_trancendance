@@ -13,7 +13,9 @@ const email_verification_notifications = {
     AccountAlreadyVerified : () => { toast.warning('account is Already verified', toast_options);},
     ServerError : () => {  toast.error('something went wrong , try again later', toast_options);},
     ConnectionRefusedError : () => {toast.error('Service Unavaible', toast_options);},
-    EmailDeleveringError : () => {toast.error('Failed to deliver new Activation Link', toast_options);}
+    EmailDeleveringError : () => {toast.error('Failed to deliver new Activation Link', toast_options);},
+    UnknownTokenError : () => {toast.error('Invalid token', toast_options);}
+
 }
 
 export function emailVerificationNotification(api_response: ApiResponse) {
