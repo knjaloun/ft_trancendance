@@ -2,15 +2,15 @@
 import type {Request, Response} from 'express'
 import { refreshJwtT } from '#emailVeri/services/refresh.js';
 import { HttpError } from '#errors/HttpError.js';
-import { sendVerificationMail } from '#emailVeri/services/sendVerificationMail.js';
+import { addToEmailQueue } from '#jobs/Queues/EmailQueue.js';
 export async function refreshJwtTokenController(req:Request, res:Response)
 {
    const {token} = req.body;
    try
    {
         const data = await refreshJwtT(String(token));
-        await sendVerificationMail(data.token, data.email);
-        res.json({message: 'ok'})
+        await addToEmailQueue(data.email, 'sendMail', data.token)
+        res.status(202).json({message: 'ok'})
    }
    catch(err)
    {

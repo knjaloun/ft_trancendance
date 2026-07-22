@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express'
 import { validateBodyorThrow } from '#emailVeri/services/validateBodyorThrow.js';
 import {validateActivationLinkResendRequest} from '#emailVeri/services/resend.js'
-import { sendVerificationMail } from '#emailVeri/services/sendVerificationMail.js';
 import { HttpError } from '#errors/HttpError.js';
+import { addToEmailQueue } from '#jobs/Queues/EmailQueue.js';
 
 export async function resendEmailController(req: Request, res: Response) {
     const { email } = req.body;
@@ -10,8 +10,8 @@ export async function resendEmailController(req: Request, res: Response) {
     try {
         await validateBodyorThrow(email);
         const token : string = await validateActivationLinkResendRequest(email);
-        await sendVerificationMail(token, email);
-        res.json({message: 'ok'})
+        await addToEmailQueue(email, 'sendMail', token)
+        res.status(202).json({message: 'ok'})
     }
     catch(err) {
         if (err instanceof HttpError)

@@ -21,7 +21,7 @@ export async function registerController(req:Request, res:Response)
     {
         await validateAuthRequestBodyOrThrow(registration_data);
         await registerUser(registration_data);
-        await addToEmailQueue(email, 'createEmailVerification')
+        await addToEmailQueue(email, 'createEmailVerificationAndSendMail')
         res.status(201).json({message: 'ok'});
     }
     catch(err)
