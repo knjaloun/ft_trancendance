@@ -1,21 +1,24 @@
 import { type RegisterData } from "#auth/types/registerTypes.ts";
+import { type ApiResponse} from "#shared/types/apiResponse.ts";
 
-export async function registerUser(data :RegisterData, isLoading:boolean) : Promise<number>
+export async function registerUser(data :RegisterData, isLoading:boolean) : Promise<ApiResponse>
 {
     if (isLoading)
-        return(400)
+        return({message: 'WorkInProgress', success: false})
     const register_payload = JSON.stringify(data)
     try{
-        const result = await fetch('http://localhost:3000/api/register', {
+        const response = await fetch('http://localhost:3000/api/register', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
             },
             body: register_payload,
         });
-        return(result.status)
+        const response_data = await response.json();
+
+        return({message: response_data.message, success: response.ok})
     }catch(err)
     {
-        return (503)
+        return ({message: 'ConnectionRefusedError', success: false})
     }
 }

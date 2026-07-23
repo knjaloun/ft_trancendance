@@ -76,4 +76,18 @@ export class EmailVerificationModel
             return false;
         }
     }
+    async getTokenById(user_id : number) : Promise<string | null>
+    {
+        try
+        {
+            const result = await db.select({token: email_activation_tokens.token})
+                                .from(email_activation_tokens).where(eq(email_activation_tokens.user_id, user_id))
+            const {token} = result[0]!
+            return (token ?? null)
+        }
+        catch(err)
+        {
+            return (null)
+        }
+    }
 }

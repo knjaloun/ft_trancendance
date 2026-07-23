@@ -1,10 +1,9 @@
 import type{Response, Request} from 'express'
 import { type RegisterDTO} from '#auth/dtos/registerDto.js'
-import {validateRequestBodyOrThrow} from '#utils/bodyValidator.js'
+import {validateAuthRequestBodyOrThrow} from '#auth/services/authBodyValidator.js'
 import {registerUser} from '#auth/services/register.service.js'
 import { HttpError } from '#errors/HttpError.js'
-import {createEmailVerification} from '#emailVeri/services/create.js'
-import { sendVerificationMail } from '#emailVeri/services/sendVerificationMail.js'
+import { addToEmailQueue } from '#jobs/Queues/EmailQueue.js'
 
 export async function registerController(req:Request, res:Response)
 {
@@ -20,10 +19,9 @@ export async function registerController(req:Request, res:Response)
     }
     try
     {
-        await validateRequestBodyOrThrow(registration_data);
+        await validateAuthRequestBodyOrThrow(registration_data);
         await registerUser(registration_data);
-        const token : string = await createEmailVerification(registration_data.email);
-        await sendVerificationMail(token, registration_data.email);
+        await addToEmailQueue(email, 'createEmailVerificationAndSendMail')
         res.status(201).json({message: 'ok'});
     }
     catch(err)
@@ -33,7 +31,7 @@ export async function registerController(req:Request, res:Response)
              res.status(err.status_code ?? 400).json({message: err.message});
              return;
         }
-        res.status(400).json({message:'Unknown_Error'})
+        res.status(400).json({message:'UnknownError'})
     }
     
 }

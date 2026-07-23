@@ -1,6 +1,6 @@
 
 
-export async function generateEmailVerificationTemplate(token: string)
+export async function generateEmailVerificationTemplate(data: string)
 {
     return(`
     Hi,
@@ -9,7 +9,7 @@ export async function generateEmailVerificationTemplate(token: string)
 
     Please verify your email address by clicking the link below:
 
-    Verify Email: ${token}
+    Verify Email: ${data}
 
     If you didn't create this account, you can safely ignore this email.
 

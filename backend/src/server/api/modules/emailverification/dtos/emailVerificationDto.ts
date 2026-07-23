@@ -5,4 +5,10 @@ export const email_verification_dto = z.object({
     user_id : z.number()
 })
 
+export const resend_email_verification_dto = z.object({
+    email: z.email()
+})
+
 export type emailVerificationDTO = z.infer<typeof email_verification_dto>
+
+export type resendEmailVerificationDTO = z.infer<typeof resend_email_verification_dto>
