@@ -4,7 +4,7 @@ export async function verifyEmail(token: string | null) : Promise<ApiResponse>
 {
     if (!token)
         return({message : 'TokenInvalidError', success: false})
-    const email_verification_payload = JSON.stringify({token: token})
+    const payload = JSON.stringify({token: token})
     try
     {
         const response = await fetch(`http://localhost:3000/api/verify`, {
@@ -12,7 +12,7 @@ export async function verifyEmail(token: string | null) : Promise<ApiResponse>
              headers: {
                 'Content-type': 'application/json'
             },
-            body : email_verification_payload
+            body : payload
         });
         const response_data = await response.json()
         return({message : response_data.message, success: response.ok})

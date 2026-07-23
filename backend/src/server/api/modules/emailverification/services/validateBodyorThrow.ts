@@ -6,6 +6,6 @@ export async function validateBodyorThrow(email: string) {
 
     email_verification_data = resend_email_verification_dto.safeParse({ email });
     if (!email_verification_data.success) {
-        throw new HttpError('InvalidBody', 400)
+        throw new HttpError('InvalidBodyError', 400)
     }
 }

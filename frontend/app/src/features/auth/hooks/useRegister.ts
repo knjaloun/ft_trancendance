@@ -2,8 +2,9 @@ import { useReducer, useState } from "react";
 import { type ChangeEvent } from "react";
 import type { RegisterData, RegisterAction } from "#auth/types/registerTypes.ts";
 import { registerUser } from "#auth/api/register.ts";
-import { registerNotification } from "#auth/notifications/auth_notifications.ts";
+import { registerNotificationOrRedirect } from "#auth/notifications/auth_notifications.ts";
 import { type ApiResponse } from "#shared/types/apiResponse.ts";
+import { useNavigate } from "react-router-dom";
 
 export function useRegister()
 {
@@ -31,6 +32,7 @@ export function useRegister()
 
     const [state, dispatch] = useReducer(reducer, initial_value)
     const [isLoading, setLoading] = useState(false)
+    const navigate = useNavigate();
 
     const handleFirstNameChange = (e:ChangeEvent<HTMLInputElement>) =>
     {
@@ -73,7 +75,7 @@ export function useRegister()
             agree_to_terms: state.agree_to_terms,
         }, isLoading);
         setLoading(false)
-        registerNotification(response);
+        registerNotificationOrRedirect(response, navigate);
 
     }
     return {state, handleFirstNameChange, handleLastNameChange, handlePhoneNumberNameChange, handleEmailChange, handlePasswordChange, handleAgreeToTermsChange, handleRegistration, isLoading}

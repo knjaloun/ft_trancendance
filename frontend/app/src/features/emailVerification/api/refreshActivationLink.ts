@@ -4,14 +4,14 @@ export async function refreshActivationLink(token : string | null) : Promise<Api
 {
     if (!token)
         return({message : 'UnknownTokenError', success: false})
-     const activation_link_refresh_playload= JSON.stringify({token: token})
+     const playload= JSON.stringify({token: token})
     try{
         const response  = await fetch('http://localhost:3000/api/verify/refresh', {
              method: 'PATCH',
              headers: {
                 'Content-type': 'application/json'
             },
-            body : activation_link_refresh_playload
+            body : playload
         })
          const response_data = await response.json()
         return({message : response_data.message, success: response.ok})
