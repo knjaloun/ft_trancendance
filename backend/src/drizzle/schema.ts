@@ -57,6 +57,5 @@ export const profile = mysqlTable('profile', {
     id:int('id').primaryKey().autoincrement(),
     user_id: int('user_id').references(()=> users.id).notNull(),
     avatar: varchar('avatar',{length: 255}),
-    description: text(),
-    country: mysqlEnum('country', ['france', 'germany', 'dubai', 'luxembourg', 'belgium', 'autria']).notNull()
+    description: text()
 })
