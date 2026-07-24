@@ -102,3 +102,25 @@ paths:
           description: Invalid token
         "500":
           description: Server failure
+  /api/verify/resend:
+    post:
+      tags:
+        - Email Verification
+      summary: resed Email Verification
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: joe@example.com
+      responses: 
+        "202":
+          description: request Accepted
+        "400":
+          description: Invalid Request
+        "403":
+          description: User is already verified
+        "401":
+          description: No User Found

@@ -8,7 +8,7 @@ async function getUserIdFromDbandValidate(email: string): Promise<number | null>
 
     const user_data: UserData | null = await user_model.getUser(email);
     if (!user_data)
-        throw new HttpError('EmailResendError', 400);
+        throw new HttpError('EmailResendError', 401);
     if (user_data.verified)
         throw new HttpError('AccountAlreadyVerified', 403);
     return (user_data.id);
