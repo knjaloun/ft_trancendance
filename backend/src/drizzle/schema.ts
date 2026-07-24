@@ -56,6 +56,6 @@ export const bookings = mysqlTable('bookings', {
 export const profile = mysqlTable('profile', {
     id:int('id').primaryKey().autoincrement(),
     user_id: int('user_id').references(()=> users.id).notNull(),
-    avatar: varchar('avatar',{length: 255}),
-    description: text()
+    avatar: varchar('avatar',{length: 255}).default('noavatar'),
+    description: text().default('')
 })

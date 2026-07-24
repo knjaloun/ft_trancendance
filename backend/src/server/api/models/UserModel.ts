@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm'
 import { type RegisterDTO } from '#auth/dtos/registerDto.js'
 import { users } from '#drizzle/schema.js'
 import {type UserData} from '#auth/types/userType.js'
+import { profile } from '#drizzle/schema.js'
 
 export class UserModel {
 
@@ -61,14 +62,20 @@ export class UserModel {
      */
     async createNewUser(user_data : RegisterDTO): Promise<boolean> {
         try {
-                await db.insert(users)
+            await db.transaction(async (tx) =>{
+                const user_res = await tx.insert(users)
                     .values({
                         email: user_data.email,
                         first_name: user_data.first_name,
                         last_name: user_data.last_name,
                         password: user_data.password,
                         phone_number: user_data.phone_number
-                })
+                });
+                await tx.insert(profile)
+                    .values({
+                        user_id: user_res[0].insertId
+                    });
+            })
             return (true);
         } catch (err) {
             return (false)

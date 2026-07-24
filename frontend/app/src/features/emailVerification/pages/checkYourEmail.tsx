@@ -13,6 +13,9 @@ export function CheckYourEmailPage() {
             <div className="w-full h-1/10 flex items-center justify-center">
                 <p>didnt recieve Email? <Link to="/verify/resend" className="text-red-400 cursor-pointer">Resend</Link></p>
             </div>
+             <div className="w-full h-1/10 flex justify-center items-center">
+                <p>back to <Link to="/login" className="text-red-400 cursor-pointer">Login</Link></p>
+            </div>
         </EmailVerificationBody>
 
     )
