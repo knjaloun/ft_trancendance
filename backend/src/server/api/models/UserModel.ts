@@ -7,12 +7,14 @@ import { profile } from '#drizzle/schema.js'
 
 export class UserModel {
 
-    async getId(email:string): Promise<number>
+    async getId(email:string): Promise<number | undefined>
     {
         const result = await db.select({id: users.id})
                                 .from(users)
                                 .where(eq(users.email, email))
-        const {id} = result[0]!
+        if (!result[0])
+            return (undefined)
+        const {id} = result[0]
         return (id)
     }
      async isUserVerifiedById(user_id:number) : Promise<boolean>

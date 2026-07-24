@@ -44,6 +44,7 @@
     "#errors/*": "./dist/server/api/errors/*",
     "#emailVeri/*": "./dist/server/api/modules/emailverification/*",
     "#infra/*": "./dist/server/infrastructure/*",
-    "#jobs/*" : "./dist/server/jobs/*"
+    "#jobs/*" : "./dist/server/jobs/*",
+    "#2fa/*" : "./dist/server/api/modules/2fa/*"
   }
 }
