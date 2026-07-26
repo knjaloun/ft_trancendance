@@ -4,7 +4,7 @@ import { UserModel } from '#models/UserModel.js'
 import { generateNewJwt } from '#utils/JwtGenerator.js'
 import { type EmailAndToken } from '#emailVeri/types/emailAndToken.js'
 
-export async function refreshJwtT(old_token: string | undefined) : Promise<EmailAndToken>
+export async function refreshJwtTAndVerify(old_token: string | undefined) : Promise<EmailAndToken>
 {
     if (!old_token)
         throw new HttpError('UnknownTokenError', 401)

@@ -2,6 +2,7 @@
 import { UserModel } from '#models/UserModel.js';
 import { generateNewJwt } from '#utils/JwtGenerator.js';
 import { HttpError } from '#errors/HttpError.js';
+import { TwoFactorAuthModel } from '#models/TwoFactorAuthModel.js';
 
 /**
  * generates a new 2FA code, when code_length paramenter is less or equal
@@ -9,7 +10,7 @@ import { HttpError } from '#errors/HttpError.js';
  * @param code_length the length of the generated code
  * @returns the 2fa code 
  */
-async function generateNew2FaCode(code_length: number) : Promise<string>
+export async function generateNew2FaCode(code_length: number) : Promise<string>
 {
     if (code_length <= 0)
        code_length = 9
@@ -27,7 +28,20 @@ async function generateNew2FaCode(code_length: number) : Promise<string>
 }
 
 
-export async function createTwoFactorAuthAndValidate(email : string) : Promise<string>
+async function openNewTwoFactorAuth(user_id:number, token:string) : Promise<boolean>
+{
+    const two_factor_auth_model = new TwoFactorAuthModel();
+    const res = await two_factor_auth_model.openNew2Fa(token, user_id);
+    
+    return (res);
+}
+/**
+ * open a new two factor verification process.
+ * if the users email is not registered or the account
+ * email is not verified an exception will be thrown
+ * @param email the users Email 
+ */
+export async function createTwoFactorAuthAndValidate(email : string) 
 {
     const user_model = new UserModel();
 
@@ -40,6 +54,7 @@ export async function createTwoFactorAuthAndValidate(email : string) : Promise<s
     const token = await generateNewJwt({user_id: user.id, code: two_fa_code}, '15min');
     if (!token)
         throw new HttpError('ServerError', 500);
-    return (token)
-
+    const open_2fa_success : boolean = await openNewTwoFactorAuth(user.id, token);
+    if (!open_2fa_success) 
+        throw new HttpError('ServerError', 500);
 }

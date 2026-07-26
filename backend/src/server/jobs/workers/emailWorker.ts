@@ -8,7 +8,7 @@ const email_worker = new Worker('emailQueue',
             case 'createEmailVerificationAndSendMail':
                 await handleCreateEmailVerification(job.data.email);
                 break;
-        case 'sendMail':
+        case 'sendAccountActivationMail':
             await handleEmailSend(job.data.email, job.data.token)
             break;
         default:

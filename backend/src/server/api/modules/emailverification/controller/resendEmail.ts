@@ -10,7 +10,7 @@ export async function resendEmailController(req: Request, res: Response) {
     try {
         await validateBodyorThrow(email);
         const token : string = await validateActivationLinkResendRequest(email);
-        await addToEmailQueue(email, 'sendMail', token)
+        await addToEmailQueue(email, 'sendAccountActivationMail', token)
         res.status(202).json({message: 'ok'})
     }
     catch(err) {
