@@ -1,13 +1,20 @@
 import { createEmailVerification } from "#emailVeri/services/create.js";
-import { sendVerificationMail } from "#emailVeri/services/sendVerificationMail.js";
+import { sendVerificationOr2FaMail } from "#utils/mailSender.js";
+import { createTwoFactorAuthAndValidate } from "#2fa/services/create2fa.js";
 
 export async function handleCreateEmailVerification(email:string)
 {
     const token = await createEmailVerification(email);
-    await sendVerificationMail(token, email); 
+    await sendVerificationOr2FaMail(email, 'EmailVerification', token); 
 }
 
 export async function handleEmailSend(email:string, token:string)
 {
-    await sendVerificationMail(token, email);
+    await sendVerificationOr2FaMail(email, 'EmailVerification', token); 
+}
+
+export async function handle2facreationAndSend(email: string)
+{
+    const code = await createTwoFactorAuthAndValidate (email);
+    await sendVerificationOr2FaMail(email, '2fa', code);
 }

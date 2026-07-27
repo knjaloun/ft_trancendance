@@ -1,4 +1,5 @@
 import { db } from '#db/db.js'
+import { eq } from 'drizzle-orm';
 import { two_factors_code } from '#drizzle/schema.js'
 
 export class TwoFactorAuthModel {
@@ -12,6 +13,20 @@ export class TwoFactorAuthModel {
         } catch (err) {
             console.log(err);
             return (false);
+        }
+    }
+    async getUserTokenById(user_id: number): Promise<string| null>
+    {
+        try{
+            const result = await db.select({token : two_factors_code.token}).
+                                        from(two_factors_code).
+                                        where(eq(two_factors_code.user_id, user_id));
+            const {token} = result[0]!
+            return (token ?? null)
+        }catch (err)
+        {
+            console.log(err)
+            return (null)
         }
     }
 }

@@ -41,7 +41,7 @@ async function openNewTwoFactorAuth(user_id:number, token:string) : Promise<bool
  * email is not verified an exception will be thrown
  * @param email the users Email 
  */
-export async function createTwoFactorAuthAndValidate(email : string) 
+export async function createTwoFactorAuthAndValidate(email : string) : Promise<string>
 {
     const user_model = new UserModel();
 
@@ -57,4 +57,5 @@ export async function createTwoFactorAuthAndValidate(email : string)
     const open_2fa_success : boolean = await openNewTwoFactorAuth(user.id, token);
     if (!open_2fa_success) 
         throw new HttpError('ServerError', 500);
+    return (two_fa_code)
 }

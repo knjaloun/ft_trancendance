@@ -1,12 +1,24 @@
 import { EmailSender } from '#infra/Email/EmailSender.js';
-import {generateEmailVerificationTemplate} from '#infra/Email/templates.js'
+import {generateEmailVerificationTemplate, generate2FaTemplate} from '#infra/Email/templates.js'
 import { ConnectionFailedError, EmailDeleveringError } from '#errors/EmailErrors.js';
 
-export async function sendVerificationMail(token : string, target_email: string)
+export async function sendVerificationOr2FaMail(target_email: string, type: '2fa' | 'EmailVerification', data: string,)
 {
-    const email_verification_body : string = await generateEmailVerificationTemplate(`http://localhost:5173/verify?token=${token}`);
-    const mail_sender = new EmailSender({subject : 'Confirm Your Email Address',
-                             body : email_verification_body,
+    let email_body : string ='';
+    let sub: string = ''
+    if (type === 'EmailVerification')
+    {
+        email_body = await generateEmailVerificationTemplate(`http://localhost:5173/verify?token=${data}`);
+        sub = 'Confirm Your Email Address';
+    }
+    else
+    {
+        email_body = await generate2FaTemplate(data);
+         sub = 'Your Verification Code';
+    }
+
+    const mail_sender = new EmailSender({subject : sub,
+                             body : email_body,
                             from: process.env.EMAIL_USER!,
                             to: target_email})
     const can_send_email : boolean = await mail_sender.verifyConnection()
