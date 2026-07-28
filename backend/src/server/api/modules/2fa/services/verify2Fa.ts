@@ -30,12 +30,12 @@ async function get2FaCodeFromDb(user_id: number): Promise<string | null> {
     }
     catch (err) {
         if ((err as HttpError).name === 'TokenExpiredError')
-            return ('CodeExpiredError')
+            return ('CodeExpiredError');
         return ('TokenError');
     }
 }
 
-export async function verify2FaCode(email: string, user_code:string) {
+export async function verify2FaCode(email: string, user_code:string) : Promise<number> {
     const user_id = await getUserIdFromDbByEmail(email);
 
     if (!user_id)
@@ -43,9 +43,10 @@ export async function verify2FaCode(email: string, user_code:string) {
 
     const code = await get2FaCodeFromDb(user_id);
     if (!code)
-        throw new HttpError('ServerError', 500);
+        throw new HttpError('InvalidCodeError', 401);
     if (code === 'CodeExpiredError' || code === 'TokenError')
         throw new HttpError(code, 401);
     if (user_code !== code)
         throw new HttpError('InvalidCodeError', 401);
+    return (user_id)
 }

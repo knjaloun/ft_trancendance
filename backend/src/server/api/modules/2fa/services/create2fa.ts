@@ -28,10 +28,16 @@ export async function generateNew2FaCode(code_length: number) : Promise<string>
 }
 
 
-async function openNewTwoFactorAuth(user_id:number, token:string) : Promise<boolean>
+async function openNewTwoFactorAuthOrReplace(user_id:number, token:string) : Promise<boolean>
 {
     const two_factor_auth_model = new TwoFactorAuthModel();
-    const res = await two_factor_auth_model.openNew2Fa(token, user_id);
+    const two_fa_exists_for_user : boolean = await two_factor_auth_model.exists(user_id);
+    let res : boolean = false;
+
+    if (two_fa_exists_for_user)
+        res = await two_factor_auth_model.updateCode(token);
+    else
+        res = await two_factor_auth_model.openNew2Fa(token, user_id); 
     
     return (res);
 }
@@ -54,7 +60,7 @@ export async function createTwoFactorAuthAndValidate(email : string) : Promise<s
     const token = await generateNewJwt({user_id: user.id, code: two_fa_code}, '15min');
     if (!token)
         throw new HttpError('ServerError', 500);
-    const open_2fa_success : boolean = await openNewTwoFactorAuth(user.id, token);
+    const open_2fa_success : boolean = await openNewTwoFactorAuthOrReplace(user.id, token);
     if (!open_2fa_success) 
         throw new HttpError('ServerError', 500);
     return (two_fa_code)
