@@ -1,10 +1,8 @@
-
+import { getUserIdFromDbByEmail, get2FaCodeFromDb } from "#2fa/utils/getData.js";
 import { HttpError } from "#errors/HttpError.js";
-import {getUserIdFromDbByEmail, get2FaCodeFromDb} from '#2fa/utils/getData.js'
 
 
-
-export async function verify2FaCode(email: string, user_code:string) : Promise<number> {
+export async function verifyandGet2FaCode(email: string) {
     const user_id = await getUserIdFromDbByEmail(email);
 
     if (!user_id)
@@ -15,7 +13,5 @@ export async function verify2FaCode(email: string, user_code:string) : Promise<n
         throw new HttpError('InvalidCodeError', 401);
     if (code === 'CodeExpiredError' || code === 'TokenError')
         throw new HttpError(code, 401);
-    if (user_code !== code)
-        throw new HttpError('InvalidCodeError', 401);
-    return (user_id)
+    return (code);
 }

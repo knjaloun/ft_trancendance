@@ -47,11 +47,13 @@ async function openNewTwoFactorAuthOrReplace(user_id:number, token:string) : Pro
  * email is not verified an exception will be thrown
  * @param email the users Email 
  */
-export async function createTwoFactorAuthAndValidate(email : string) : Promise<string>
+export async function createOrReplaceTwoFactorAuthAndValidate(email : string) : Promise<string>
 {
     const user_model = new UserModel();
 
      const user = await user_model.getUser(email);
+
+
      if (!user || !user.verified)
         throw new HttpError('InvalidUserError', 401);
     const two_fa_code : string  = await generateNew2FaCode(9);

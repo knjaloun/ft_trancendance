@@ -19,6 +19,6 @@ app.use('/api', authRouter)
 app.use('/api', emailVerificationRouter)
 app.use('/api', TwoFaRouter);
 
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log(`app listens on port ${port}`)
 })

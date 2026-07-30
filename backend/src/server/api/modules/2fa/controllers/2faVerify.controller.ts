@@ -8,7 +8,7 @@ export async function twoFactorAuthController(req: Request, res: Response) {
     const { email, code } = req.body;
 
     try {
-        await validateTwoFactorAuthBodyOrThrow(email ?? '', code ?? '');
+        await validateTwoFactorAuthBodyOrThrow(email ?? '', '2faVerify', code ?? '');
         const user_id = await verify2FaCode(email, code);
         await invalidate2FaCode(user_id);
         res.status(200).json({message: 'ok'})
