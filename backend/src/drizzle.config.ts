@@ -1,9 +1,10 @@
-import dotenv from 'dotenv'
-import dotenvExpand from 'dotenv-expand'
+import dotenv from 'dotenv';
+import dotenvExpand from 'dotenv-expand';
 import { defineConfig } from 'drizzle-kit';
 
-const env = dotenv.config({path: '../../.env'})
-dotenvExpand.expand(env)
+const env = dotenv.config({ path: '../../.env' });
+dotenvExpand.expand(env);
+console.log(process.env.MYSQL_URL!);
 
 export default defineConfig({
   out: './drizzle',
