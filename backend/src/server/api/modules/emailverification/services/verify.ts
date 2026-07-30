@@ -3,21 +3,27 @@ import { HttpError } from "#errors/HttpError.js";
 import jwt from 'jsonwebtoken'
 import { UserModel } from "#models/UserModel.js";
 import { EmailVerificationModel } from "#models/EmailVerificationModel.js";
-export async function verifyJwtToken(token: string | undefined) : Promise<number | undefined>
+
+
+export async function checkIfTokenExists(token: string | undefined) 
 {
     if (!token)
         throw new HttpError('InvalidJWTError', 401);
+
+    const email_verification_model = new EmailVerificationModel();
+    const token_exists : boolean = await email_verification_model.tokenExists(token)
+    if (!token_exists)
+    {
+        throw new HttpError('InvalidJWTError', 401)
+    }
+}
+
+export async function verifyJwtToken(token: string) : Promise<number | undefined>
+{
     try
     {
-        const email_verification_model = new EmailVerificationModel();
-        const token_exists : boolean = await email_verification_model.tokenExists(token)
-        if (!token_exists)
-        {
-            throw new HttpError('InvalidJWTError', 401)
-        }
         const data = jwt.verify(token, String(process.env.JWT_SECRET));
-        return ((data as jwt.JwtPayload).user_id)
-       
+        return ((data as jwt.JwtPayload).user_id)      
     }
     catch(err)
     {

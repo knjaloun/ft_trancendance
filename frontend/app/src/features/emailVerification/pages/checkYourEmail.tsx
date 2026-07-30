@@ -17,6 +17,5 @@ export function CheckYourEmailPage() {
                 <p>back to <Link to="/login" className="text-red-400 cursor-pointer">Login</Link></p>
             </div>
         </EmailVerificationBody>
-
     )
 }

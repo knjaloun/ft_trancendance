@@ -1,8 +1,10 @@
 import {HttpError} from '#errors/HttpError.js'
 import { EmailVerificationModel } from '#models/EmailVerificationModel.js'
 import { UserModel } from '#models/UserModel.js'
-import { generateNewJwt } from './create.js'
-export async function refreshJwtT(old_token: string | undefined) : Promise<any>
+import { generateNewJwt } from '#utils/JwtGenerator.js'
+import { type EmailAndToken } from '#emailVeri/types/emailAndToken.js'
+
+export async function refreshJwtTAndVerify(old_token: string | undefined) : Promise<EmailAndToken>
 {
     if (!old_token)
         throw new HttpError('UnknownTokenError', 401)
@@ -13,11 +15,11 @@ export async function refreshJwtT(old_token: string | undefined) : Promise<any>
     if (!user_id)
         throw new HttpError('InvalidJWTError', 401);
 
-     const data = await user_model.getverificationStatusAndEmail(user_id);
+     const data  = await user_model.getverificationStatusAndEmail(user_id);
      if (data.verified)
         throw new HttpError('AccountAlreadyVerified', 401);
 
-    const new_token : string | undefined = await generateNewJwt(user_id);
+    const new_token : string | undefined = await generateNewJwt({user_id: user_id}, '24h');
     if (!new_token)
         throw new HttpError('ServerError', 500)
 
