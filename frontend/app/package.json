@@ -38,6 +38,7 @@
     "#notifications/*": "./src/notifications/*",
     "#auth/*": "./src/features/auth/*",
     "#emailVeri/*": "./src/features/emailVerification/*",
+    "#legal/*": "./src/features/legal/*",
     "#shared/*": "./src/shared/*"
   }
 }
