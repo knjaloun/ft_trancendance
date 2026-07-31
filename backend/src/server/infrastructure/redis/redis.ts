@@ -1,6 +1,7 @@
 import { Redis } from 'ioredis';
 import dotenv from 'dotenv';
 import dotenvExpand from 'dotenv-expand';
+import {createClient} from 'redis'
 
 if (!process.env.REDIS_HOST) {
   const env = dotenv.config({ path: '../.env' });
