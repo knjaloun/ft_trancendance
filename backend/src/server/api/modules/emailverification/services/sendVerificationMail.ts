@@ -4,7 +4,8 @@ import { ConnectionFailedError, EmailDeleveringError } from '#errors/EmailErrors
 
 export async function sendVerificationMail(token : string, target_email: string)
 {
-    const email_verification_body : string = await generateEmailVerificationTemplate(`http://localhost:5173/verify?token=${token}`);
+    const app_url : string = process.env.APP_URL ?? 'http://localhost:5173';
+    const email_verification_body : string = await generateEmailVerificationTemplate(`${app_url}/verify?token=${token}`);
     const mail_sender = new EmailSender({subject : 'Confirm Your Email Address',
                              body : email_verification_body,
                             from: process.env.EMAIL_USER!,

@@ -1,22 +1,24 @@
-import express from 'express'
+import express from 'express';
 import cors from 'cors';
 
-import authRouter from '#auth/route/auth.routing.js'
-import emailVerificationRouter from '#emailVeri/route/emailVerification.route.js'
+import authRouter from '#auth/route/auth.routing.js';
+import emailVerificationRouter from '#emailVeri/route/emailVerification.route.js';
 
-const app = express()
+const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true,
+  }),
+);
 app.use(express.json());
-const port = process.env.PORT ?? 3000
+const port = process.env.PORT ?? 3000;
 
-app.use('/api', authRouter)
-app.use('/api', emailVerificationRouter)
+app.use('/api', authRouter);
+app.use('/api', emailVerificationRouter);
 
-app.listen(port, ()=>{
-    console.log(`app listens on port ${port}`)
-})
+app.listen(port, () => {
+  console.log(`app listens on port ${port}`);
+});

@@ -7,7 +7,7 @@ export async function verifyEmail(token: string | null) : Promise<ApiResponse>
     const payload = JSON.stringify({token: token})
     try
     {
-        const response = await fetch(`http://localhost:3000/api/verify`, {
+        const response = await fetch(`/api/verify`, {
             method: 'POST',
              headers: {
                 'Content-type': 'application/json'
@@ -16,7 +16,7 @@ export async function verifyEmail(token: string | null) : Promise<ApiResponse>
         });
         const response_data = await response.json()
         return({message : response_data.message, success: response.ok})
-    }catch(err)
+    }catch
     {
         return ({message : 'ConnectionRefusedError', success:false})
     }
