@@ -1,26 +1,18 @@
 
-import jwt from 'jsonwebtoken'
 import {UserModel} from '#models/UserModel.js'
 import { email_verification_dto, type emailVerificationDTO} from '#emailVeri/dtos/emailVerificationDto.js';
 import { EmailVerificationModel } from '#models/EmailVerificationModel.js';
 import { HttpError } from '#errors/HttpError.js';
-export async function generateNewJwt(user_id: number): Promise<string | undefined>
-{
-    const token : string = jwt.sign(
-        {
-            user_id: user_id,
-            jti : crypto.randomUUID()
-        }
-        , String(process.env.JWT_SECRET), {expiresIn : '24h'});
-    return (token ?? undefined)
-}
+import { generateNewJwt } from '#utils/JwtGenerator.js';
 
-async function createEmailVerificationData(email: string) : Promise<emailVerificationDTO | undefined>
+
+async function getEmailVerificationData(email: string) : Promise<emailVerificationDTO | undefined>
 {
     const user_model = new UserModel()
-    const user_id : number = await user_model.getId(email)
-
-    const jwt_token : string | undefined = await generateNewJwt(user_id)
+    const user_id : number | undefined = await user_model.getId(email)
+    if (!user_id)
+        return (undefined)
+    const jwt_token : string | undefined = await generateNewJwt({user_id: user_id}, '24h')
     const email_verification_data = email_verification_dto.safeParse({user_id: user_id, token: jwt_token})
     if (!email_verification_data.success)
         return (undefined)
@@ -34,7 +26,7 @@ async function createEmailVerificationData(email: string) : Promise<emailVerific
  */
 export async function createEmailVerification(email:string) : Promise<string>
 {
-    const email_verification_data : emailVerificationDTO | undefined =   await createEmailVerificationData(email);
+    const email_verification_data : emailVerificationDTO | undefined =   await getEmailVerificationData(email);
     if (!email_verification_data)
         throw new HttpError('generating email activation data failed', 500);
     const email_verification_model = new EmailVerificationModel();

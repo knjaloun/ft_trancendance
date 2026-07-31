@@ -1,15 +1,20 @@
 import { Worker , type Job} from "bullmq";
 import { redis_connection } from "#infra/redis/redis.js";
-import { handleCreateEmailVerification } from "#jobs/jobHandlers/emailJobHandler.js";
-import { handleEmailSend } from "#jobs/jobHandlers/emailJobHandler.js";
+import { handleCreateEmailVerification, handleEmailSend, handle2facreationAndSend, handle2FaEmailSend} from "#jobs/jobHandlers/emailJobHandler.js";
 const email_worker = new Worker('emailQueue',
     async (job:Job) => {
         switch (job.name){
             case 'createEmailVerificationAndSendMail':
                 await handleCreateEmailVerification(job.data.email);
                 break;
-        case 'sendMail':
-            await handleEmailSend(job.data.email, job.data.token)
+        case 'sendAccountActivationMail':
+            await handleEmailSend(job.data.email, job.data.tokenOrCode)
+            break;
+        case 'create2FaAndSendMail':
+            await handle2facreationAndSend(job.data.email);
+            break;
+        case 'send2faMail':
+            await handle2FaEmailSend(job.data.email, job.data.tokenOrCode);
             break;
         default:
             console.log('no matching job found')

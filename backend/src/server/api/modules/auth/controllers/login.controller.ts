@@ -3,6 +3,7 @@ import {type loginDTO} from '#auth/dtos/loginDto.js'
 import {validateAuthRequestBodyOrThrow} from '#auth/services/authBodyValidator.js'
 import {loginUser} from '#auth/services/login.service.js'
 import { HttpError } from '#errors/HttpError.js';
+import { addToEmailQueue } from '#jobs/Queues/EmailQueue.js';
 
 export async function loginController(req:Request, res:Response)
 {
@@ -16,6 +17,8 @@ export async function loginController(req:Request, res:Response)
     {
         await validateAuthRequestBodyOrThrow(login_data)
         await loginUser(login_data);
+         await addToEmailQueue(email, 'create2FaAndSendMail');
+
         res.json({message: 'OK'})
     }catch(err)
     {
