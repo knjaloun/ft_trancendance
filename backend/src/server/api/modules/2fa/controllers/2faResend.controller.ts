@@ -9,6 +9,7 @@ export async function TwoFactorAuthResendController(req: Request, res: Response)
     const {email} = req.body;
     try
     {
+        console.log('hallo');
         await validateTwoFactorAuthBodyOrThrow(email, '2faRefreshOrResend')
         const code = await verifyandGet2FaCode(email)
         await addToEmailQueue(email, 'send2faMail', code)
