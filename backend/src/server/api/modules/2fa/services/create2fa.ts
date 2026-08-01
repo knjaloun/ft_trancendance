@@ -56,7 +56,7 @@ export async function createOrReplaceTwoFactorAuthAndValidate(email : string) : 
 
      if (!user || !user.verified)
         throw new HttpError('InvalidUserError', 401);
-    const two_fa_code : string  = await generateNew2FaCode(9);
+    const two_fa_code : string  = await generateNew2FaCode(6);
     console.log(`generated code : ${two_fa_code}`);
 
     const token = await generateNewJwt({user_id: user.id, code: two_fa_code}, '15min');
