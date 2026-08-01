@@ -13,6 +13,8 @@ tags:
     description: User registration and login
   - name: Email Verification
     description: User Email Verification
+  - name : 2fa
+    description: 2 Factor Authentication
 
 paths:
   /api/register:
@@ -124,3 +126,70 @@ paths:
           description: User is already verified
         "401":
           description: No User Found
+
+  /api/2fa/verify:
+    post:
+      tags:
+        - 2fa
+      summary: verify 2Fa code
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: joe@example.com
+                code : 123123123
+      responses: 
+        "200":
+          description: verification successful
+        "400":
+          description: InvalidBodyError
+        "401":
+          description: InvalidUserError, InvalidCodeError, CodeExpiredError or TokenError
+  
+
+  /api/2fa/refresh:
+    post:
+      tags:
+       - 2fa
+      summary: request be 2fa code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: joe@example.com
+      responses:
+        "202":
+          description: request Accepted
+        "400":
+          description: InvalidBodyError
+        "401":
+          description: InvalidUserError
+        "500":
+          description: ServerError
+
+  /api/2fa/resend:
+    post:
+      tags:
+       - 2fa
+      summary: request resending of the 2fa code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: joe@example.com
+      responses:
+        "202":
+          description: request Accepted
+        "400":
+          description: InvalidBodyError
+        "401":
+          description: InvalidUserError, CodeExpiredError or TokenError
