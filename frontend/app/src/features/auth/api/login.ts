@@ -5,6 +5,7 @@ export async function loginUser(email: string | undefined, password: string | un
     try {
         const response = await fetch('http://localhost:3000/api/login', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-type': 'application/json'
             },
@@ -12,6 +13,7 @@ export async function loginUser(email: string | undefined, password: string | un
         });
        
         const response_data = await response.json()
+        console.log(response_data.message);
         return ({message: response_data.message, success: response.ok})
     } catch (e) {
         console.log(e)

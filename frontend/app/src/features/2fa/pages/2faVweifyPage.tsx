@@ -1,40 +1,10 @@
-import { useState, useRef } from "react"
-import { type ChangeEvent } from "react";
-
-
-const pattern = /^\d*$/;
+import { Link } from "react-router-dom";
+import { use2Fa } from "../hooks/use2fa";
+import { ToastContainer } from "react-toastify";
 
 export function TwoFaVerifyPage() {
 
-    const [code, setcode] = useState(Array(6).fill(""));
-
-    const inputRef = useRef<(HTMLInputElement | null)[]>([]);
-
-
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-        console.log(`modeifing index : ${index}`)
-        let updated_code = e.target.value;
-        if (!pattern.test(updated_code))
-            updated_code = ""
-        const new_code = [...code];
-
-        new_code[index] = updated_code
-
-        setcode(new_code)
-        if (index < 5 && updated_code)
-            inputRef.current[index + 1]?.focus();
-    }
-
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number, value: string) => {
-
-        if (
-            e.key === "Backspace" &&
-            e.currentTarget.value === "" &&
-            index > 0
-        ) {
-            inputRef.current[index - 1]?.focus();
-        }
-    }
+    const { handleVerify2FACode,handleInputChange, handleKeyDown, inputRef, code } = use2Fa();
 
     return (
 
@@ -49,19 +19,25 @@ export function TwoFaVerifyPage() {
                 <div className="h-1/10 w-full flex justify-center items-center gap-2">
                     {code.map((item: string, index: number) => (
                         <input
-                            autoFocus={index === 0}
                             key={index}
                             ref={(el: HTMLInputElement | null) => { inputRef.current[index] = el; }}
                             className="h-7/10 w-1/8 bg-white caret-transparent text-2xl border border-gray-400"
                             maxLength={1}
                             value={code[index]}
                             onChange={(e) => { handleInputChange(e, index) }}
-                            onKeyDown={(e) => handleKeyDown(e, index, item)}
+                            onKeyDown={(e) => handleKeyDown(e, index)}
                         />
                     )
                     )}
 
                 </div>
+                <div className="w-full h-1/10 flex justify-center items-center">
+                    <button type="button" onClick={handleVerify2FACode} className="h-6/10 w-7/10 bg-red-400 hover:bg-red-300 text-white rounded-xl cursor-pointer">Verify</button>
+                </div>
+                <div className="w-full h-1/10 flex justify-center items-center">
+                    <p>back to <Link to="/login" className="text-red-400 cursor-pointer">Login</Link></p>
+                </div>
+                <ToastContainer/>
             </div>
         </div>
 

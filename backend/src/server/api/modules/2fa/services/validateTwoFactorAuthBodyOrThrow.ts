@@ -9,7 +9,6 @@ export async function validateTwoFactorAuthBodyOrThrow(email: string, type: '2fa
         validation_result = two_factor_auth_dto.safeParse({email});
     if (!validation_result.success)
     {
-        console.log(validation_result.error)
         throw new HttpError('InvalidBodyError', 400);
     }
 }

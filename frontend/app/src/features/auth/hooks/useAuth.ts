@@ -22,7 +22,7 @@ export function useAuth() {
         setLoading(true)
         const response: ApiResponse = await loginUser(email, password);
         setLoading(false)
-        loginNotificationOrRedirect(response, navigate)
+        loginNotificationOrRedirect(response, navigate, email)
     }
     return {
         email,
