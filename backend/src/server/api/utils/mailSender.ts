@@ -8,7 +8,8 @@ export async function sendVerificationOr2FaMail(target_email: string, type: '2fa
     let sub: string = ''
     if (type === 'EmailVerification')
     {
-        email_body = await generateEmailVerificationTemplate(`http://localhost:5173/verify?token=${data}`);
+        const app_url : string = process.env.APP_URL ?? 'http://localhost:5173';
+        email_body = await generateEmailVerificationTemplate(`${app_url}/verify?token=${data}`);
         sub = 'Confirm Your Email Address';
     }
     else
