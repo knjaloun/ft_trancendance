@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 
 export function TwoFaVerifyPage() {
 
-    const { handleVerify2FACode,handleInputChange, handleKeyDown, inputRef, code } = use2Fa();
+    const { handleVerify2FACode,handleInputChange, handleKeyDown, inputRef, code, isLoading } = use2Fa();
 
     return (
 
@@ -32,7 +32,7 @@ export function TwoFaVerifyPage() {
 
                 </div>
                 <div className="w-full h-1/10 flex justify-center items-center">
-                    <button type="button" onClick={handleVerify2FACode} className="h-6/10 w-7/10 bg-red-400 hover:bg-red-300 text-white rounded-xl cursor-pointer">Verify</button>
+                    <button type="button" disabled={isLoading} onClick={handleVerify2FACode} className="h-6/10 w-7/10 bg-red-400 hover:bg-red-300 text-white rounded-xl cursor-pointer">Verify</button>
                 </div>
                 <div className="w-full h-1/10 flex justify-center items-center">
                     <p>back to <Link to="/login" className="text-red-400 cursor-pointer">Login</Link></p>

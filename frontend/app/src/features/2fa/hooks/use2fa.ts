@@ -14,6 +14,7 @@ export function use2Fa()
     const inputRef = useRef<(HTMLInputElement | null)[]>([]);
     const location = useLocation();
     const navigate = useNavigate();
+    const [isLoading, setLoading] = useState(false);
 
 
 
@@ -43,7 +44,9 @@ export function use2Fa()
 
     async function handleVerify2FACode()
     {
+        setLoading(true);
         const response = await verify2faCode(code.join(''), (location.state as LocationState).email ?? '');
+        setLoading(false);
         TwoFaNotificationsOrRedirtect(response, navigate);
 
     }
@@ -54,5 +57,5 @@ export function use2Fa()
 
     
 
-    return {handleVerify2FACode, handleInputChange, handleKeyDown, inputRef,code}
+    return {handleVerify2FACode, handleInputChange, handleKeyDown, inputRef, code, isLoading}
 }
