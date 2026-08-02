@@ -4,7 +4,7 @@ export async function resendActivationLink(email: string): Promise<ApiResponse> 
     const payload = JSON.stringify({ email: email });
 
     try {
-        const response = await fetch('http://localhost:3000/api/verify/resend', {
+        const response = await fetch('/api/verify/resend', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'

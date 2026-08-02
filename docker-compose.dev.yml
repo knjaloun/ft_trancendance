@@ -1,0 +1,78 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      target: dev
+    image: transcendence-backend-dev
+    container_name: backend-container
+    restart: unless-stopped
+    command: ["dev-api"]
+    env_file:
+      - .env
+    environment:
+      PORT: 3000
+      HOST: mysql
+      DB_PORT: 5310
+      MYSQL_URL: mysql://root:${DB_ROOT_PSW}@mysql:5310/trancendance
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      APP_URL: http://localhost:${DEV_PORT:-5173}
+      CORS_ORIGIN: http://localhost:${DEV_PORT:-5173}
+      CHOKIDAR_USEPOLLING: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/tsconfig.json:/app/tsconfig.json
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - transcendence
+
+  worker:
+    image: transcendence-backend-dev
+    container_name: worker-container
+    restart: unless-stopped
+    command: ["dev-worker"]
+    env_file:
+      - .env
+    environment:
+      HOST: mysql
+      DB_PORT: 5310
+      MYSQL_URL: mysql://root:${DB_ROOT_PSW}@mysql:5310/trancendance
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      APP_URL: http://localhost:${DEV_PORT:-5173}
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/tsconfig.json:/app/tsconfig.json
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - transcendence
+
+  frontend:
+    build:
+      context: ./frontend/app
+      target: dev
+    image: transcendence-frontend-dev
+    container_name: frontend-container
+    restart: unless-stopped
+    environment:
+      VITE_API_TARGET: http://backend:3000
+      VITE_POLL: "1"
+    ports:
+      - "${DEV_PORT:-5173}:5173"
+    volumes:
+      - ./frontend/app:/app
+      - /app/node_modules
+    depends_on:
+      backend:
+        condition: service_started
+    networks:
+      - transcendence
