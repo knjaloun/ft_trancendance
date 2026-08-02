@@ -17,7 +17,7 @@ export async function registerUser(data :RegisterData, isLoading:boolean) : Prom
         const response_data = await response.json();
 
         return({message: response_data.message, success: response.ok})
-    }catch(err)
+    }catch
     {
         return ({message: 'ConnectionRefusedError', success: false})
     }

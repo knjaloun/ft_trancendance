@@ -62,7 +62,7 @@ export function RegisterForm() {
                 </div>
                 <div className="w-full h-1/18">
                     <input type="checkbox" checked={state.agree_to_terms} onChange={handleAgreeToTermsChange}/>
-                    <label className="ml-3 text-xs xl:text-sm">I agree to the <a href="" className="text-blue-500 underline">Term</a> of service and <a href="" className="text-blue-500 underline">Private</a> Policy</label>
+                    <label className="ml-3 text-xs xl:text-sm">I agree to the <Link to="/terms" target="_blank" className="text-blue-500 underline">Terms</Link> of Service and <Link to="/privacy" target="_blank" className="text-blue-500 underline">Privacy</Link> Policy</label>
                 </div>
                 <div className="w-full h-1/7 mt-7 sm:mt-3 min-h-18 max-h-40">
                     <div className="w-full h-1/2">

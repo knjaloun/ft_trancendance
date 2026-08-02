@@ -16,7 +16,7 @@ export async function verifyEmail(token: string | null) : Promise<ApiResponse>
         });
         const response_data = await response.json()
         return({message : response_data.message, success: response.ok})
-    }catch(err)
+    }catch
     {
         return ({message : 'ConnectionRefusedError', success:false})
     }
